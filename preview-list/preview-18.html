@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LONGPON — Reconstructing Taichung Since 1989</title>
+<meta name="description" content="隆磐建設。台中危老重建、自地自建、都市更新。37 年整合資歷，42 年甲級營造。">
+<meta property="og:title" content="LONGPON — Architectural Practice, Taichung">
+<meta property="og:description" content="Reconstructing Taichung Since 1989. 危老重建 · 自地自建 · 都市更新整合。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Sans+TC:wght@200;300;400&family=Noto+Serif+TC:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ======================================================
+   LONGPON — Architectural Editorial
+   Pure black / white / cement. No color. No icons. No emoji.
+   ====================================================== */
+
+:root {
+  --black: #0B0B0B;
+  --white: #FFFFFF;
+  --cement: #B8B5AE;
+  --cement-dark: #8A8781;
+  --cement-pale: #E8E5DF;
+  --off-white: #F4F2EE;
+  --en: 'Cormorant Garamond', 'Georgia', serif;
+  --zh-serif: 'Noto Serif TC', 'Georgia', serif;
+  --zh-sans: 'Noto Sans TC', -apple-system, sans-serif;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--zh-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  cursor: none;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { cursor: none; border: none; background: none; font-family: inherit; }
+
+/* ===== Custom Cursor ===== */
+#cursor {
+  position: fixed;
+  width: 28px; height: 28px;
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .25s ease, height .25s ease, border-color .25s ease, background .25s ease;
+  mix-blend-mode: difference;
+}
+#cursor.hover {
+  width: 56px; height: 56px;
+  border-color: rgba(255,255,255,0.9);
+}
+#cursor.click {
+  width: 16px; height: 16px;
+  background: rgba(255,255,255,0.3);
+}
+
+/* ===== Navigation ===== */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mix-blend-mode: difference;
+}
+.nav-logo {
+  font-family: var(--en);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.nav-links a {
+  font-family: var(--en);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.6;
+  transition: opacity .2s;
+}
+.nav-links a:hover { opacity: 1; }
+.nav-year {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--cement);
+}
+.nav-mobile-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+.nav-mobile-btn span { display: block; width: 20px; height: 1px; background: var(--white); }
+
+/* ===== Hero ===== */
+#hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+}
+.hero-rule-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  top: 88px;
+}
+.hero-rule-bottom {
+  position: absolute;
+  bottom: 88px; left: 0; right: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+}
+.hero-rule-left {
+  position: absolute;
+  left: 48px; top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.05);
+}
+.hero-rule-right {
+  position: absolute;
+  right: 48px; top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.05);
+}
+
+/* Vertical text: LONG / PON */
+.hero-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+.hero-word {
+  font-family: var(--en);
+  font-size: clamp(80px, 14vw, 180px);
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  color: var(--white);
+  line-height: 0.85;
+  display: block;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: wordReveal 1.4s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-word:nth-child(1) { animation-delay: .1s; }
+.hero-word:nth-child(2) {
+  animation-delay: .3s;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+}
+.hero-divider {
+  width: 1px;
+  height: clamp(20px, 3vw, 40px);
+  background: rgba(255,255,255,0.2);
+  margin: clamp(8px,1.5vw,18px) 0;
+  opacity: 0;
+  animation: fadeIn .6s ease .8s forwards;
+}
+.hero-sub {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  font-family: var(--en);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cement);
+  opacity: 0;
+  animation: fadeIn .8s ease 1s forwards;
+}
+.hero-index {
+  position: absolute;
+  bottom: 48px;
+  right: 48px;
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--cement);
+  opacity: 0;
+  animation: fadeIn .8s ease 1.2s forwards;
+}
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn .8s ease 1.5s forwards;
+}
+.scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+  animation: scrollPulse 2s ease-in-out 1.8s infinite;
+}
+.scroll-label {
+  font-family: var(--en);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cement);
+  writing-mode: vertical-rl;
+}
+
+@keyframes wordReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 0.8; transform: scaleY(1.1); }
+}
+
+/* ===== Portfolio horizontal scroll ===== */
+#portfolio {
+  position: relative;
+  background: var(--black);
+}
+.portfolio-header {
+  padding: 96px 48px 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.portfolio-label {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cement);
+  margin-bottom: 8px;
+}
+.portfolio-title {
+  font-family: var(--en);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.portfolio-count {
+  font-family: var(--en);
+  font-size: 80px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.06);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Horizontal scroll track */
+.h-scroll-track {
+  display: flex;
+  gap: 2px;
+  padding: 0 48px 48px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.h-scroll-track::-webkit-scrollbar { display: none; }
+
+.portfolio-item {
+  flex: 0 0 calc(60vw - 48px);
+  scroll-snap-align: start;
+  position: relative;
+  cursor: none;
+  overflow: hidden;
+  background: #111;
+}
+.portfolio-item.featured { flex: 0 0 calc(80vw - 48px); }
+
+.portfolio-img {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.75) contrast(1.05);
+  transition: filter .6s ease, transform .8s ease;
+  display: block;
+}
+.portfolio-item:hover .portfolio-img {
+  filter: grayscale(1) brightness(0.55) contrast(1.1);
+  transform: scale(1.02);
+}
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11,11,11,0);
+  transition: background .4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+}
+.portfolio-item:hover .portfolio-overlay {
+  background: rgba(11,11,11,0.35);
+}
+.portfolio-meta {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.portfolio-item:hover .portfolio-meta { opacity: 1; transform: translateY(0); }
+
+.portfolio-num {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--cement);
+  margin-bottom: 6px;
+}
+.portfolio-name {
+  font-family: var(--zh-serif);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.portfolio-info {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--cement);
+  text-transform: uppercase;
+}
+
+.portfolio-caption {
+  padding: 20px 32px 0;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 0;
+}
+.caption-year {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--cement);
+  padding-top: 2px;
+}
+.caption-text {
+  font-family: var(--zh-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+/* Scroll nav */
+.h-scroll-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 48px 48px;
+}
+.h-scroll-progress {
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 0 32px;
+  position: relative;
+}
+.h-scroll-bar {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  background: var(--white);
+  transition: width .2s ease;
+  width: 20%;
+}
+.h-scroll-btn {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--cement);
+  text-transform: uppercase;
+  cursor: none;
+  transition: color .2s;
+  padding: 4px 0;
+  background: none; border: none;
+}
+.h-scroll-btn:hover { color: var(--white); }
+
+/* ===== Editorial Case Section ===== */
+.editorial-section {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 120px 0;
+  position: relative;
+}
+.editorial-inner {
+  display: grid;
+  grid-template-columns: 48px 180px 1fr 48px;
+  gap: 0;
+  max-width: 100%;
+}
+.ed-margin { /* empty side margins */ }
+
+.ed-sidebar {
+  padding: 0 32px 0 0;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.ed-sidebar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 32px;
+}
+.ed-sidebar-label {
+  font-family: var(--en);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cement-dark);
+}
+.ed-sidebar-val {
+  font-family: var(--zh-serif);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+.ed-sidebar-val.en {
+  font-family: var(--en);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+.ed-body {
+  padding: 0 64px;
+}
+
+/* Full-bleed image */
+.ed-fullbleed {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.ed-fullbleed img {
+  width: 100%;
+  height: 85vh;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.8) contrast(1.05);
+  display: block;
+}
+.ed-fullbleed-caption {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Typography */
+.ed-chapter {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--cement);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ed-chapter::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+
+.ed-h2 {
+  font-family: var(--en);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.ed-h2-zh {
+  font-family: var(--zh-serif);
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 200;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 48px;
+}
+
+.ed-body-text {
+  font-family: var(--zh-sans);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 2;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+  max-width: 640px;
+}
+.ed-body-text.en {
+  font-family: var(--en);
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.02em;
+  line-height: 1.8;
+  max-width: 560px;
+}
+.ed-pull-quote {
+  font-family: var(--en);
+  font-size: clamp(22px, 3vw, 40px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  border-left: 1px solid rgba(255,255,255,0.15);
+  padding-left: 32px;
+  margin: 48px 0;
+  max-width: 560px;
+}
+.ed-rule {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 48px 0;
+}
+
+/* Figures */
+.ed-figure {
+  margin: 48px 0;
+  position: relative;
+}
+.ed-figure img {
+  width: 100%;
+  filter: grayscale(1) brightness(0.8) contrast(1.05);
+  display: block;
+}
+.ed-figure-cap {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+.ed-figure-num {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--cement-dark);
+  padding-top: 2px;
+}
+.ed-figure-text {
+  font-family: var(--zh-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+
+/* 2-col figure grid */
+.ed-figure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 48px 0;
+}
+.ed-figure-grid img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.75) contrast(1.05);
+  display: block;
+}
+
+/* Specs table */
+.ed-specs {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin: 40px 0;
+}
+.ed-spec-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.ed-spec-key {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cement-dark);
+  padding-top: 2px;
+}
+.ed-spec-val {
+  font-family: var(--zh-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.03em;
+}
+.ed-spec-val.highlight {
+  color: var(--white);
+  font-weight: 400;
+}
+
+/* Testimonial */
+.ed-testimonial {
+  padding: 48px;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin: 48px 0;
+  position: relative;
+  max-width: 640px;
+}
+.ed-testimonial::before {
+  content: '"';
+  font-family: var(--en);
+  font-size: 120px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.04);
+  position: absolute;
+  top: -20px;
+  left: 28px;
+  line-height: 1;
+}
+.ed-testimonial-text {
+  font-family: var(--zh-serif);
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  line-height: 2;
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+.ed-testimonial-author {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cement);
+}
+
+/* ===== Services Section ===== */
+#services {
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.service-chapter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 90vh;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.service-chapter:nth-child(even) { direction: rtl; }
+.service-chapter:nth-child(even) > * { direction: ltr; }
+
+.service-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.7) contrast(1.05);
+  transition: filter .8s ease, transform 1.2s ease;
+}
+.service-chapter:hover .service-img {
+  filter: grayscale(1) brightness(0.55) contrast(1.1);
+  transform: scale(1.02);
+}
+.service-text {
+  padding: 96px 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--black);
+}
+.service-num {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--cement);
+  margin-bottom: 32px;
+}
+.service-title-en {
+  font-family: var(--en);
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.service-title-zh {
+  font-family: var(--zh-serif);
+  font-size: clamp(16px, 1.8vw, 22px);
+  font-weight: 200;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 40px;
+}
+.service-prose {
+  font-family: var(--zh-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 2;
+  letter-spacing: 0.04em;
+  max-width: 400px;
+  margin-bottom: 32px;
+}
+.service-specs {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.service-spec {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+.service-spec-key { color: var(--cement-dark); text-transform: uppercase; }
+.service-spec-val { color: rgba(255,255,255,0.55); }
+
+/* ===== About / Manifesto ===== */
+#about {
+  padding: 160px 48px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 96px;
+  align-items: start;
+}
+.about-left {
+  position: sticky;
+  top: 120px;
+}
+.about-label {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--cement);
+  margin-bottom: 24px;
+}
+.about-h2 {
+  font-family: var(--en);
+  font-size: clamp(48px, 6vw, 96px);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.about-h2-zh {
+  font-family: var(--zh-serif);
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 200;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.4;
+}
+.about-stats {
+  margin-top: 64px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.about-stat-num {
+  font-family: var(--en);
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.about-stat-label {
+  font-family: var(--zh-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.05em;
+}
+
+.about-right { padding-top: 8px; }
+.about-body {
+  font-family: var(--zh-sans);
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  line-height: 2.1;
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+}
+.about-body-en {
+  font-family: var(--en);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255,255,255,0.25);
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  margin-bottom: 48px;
+}
+.about-awards {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.award-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.award-year {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cement);
+  padding-top: 2px;
+}
+.award-title {
+  font-family: var(--zh-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+}
+
+/* ===== Footer / Inquiry ===== */
+#inquiry {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 120px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 96px;
+  align-items: end;
+  background: #070707;
+}
+.inquiry-left {}
+.inquiry-en {
+  font-family: var(--en);
+  font-size: clamp(64px, 10vw, 140px);
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  line-height: 0.85;
+  margin-bottom: 32px;
+}
+.inquiry-dash {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cement);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.inquiry-dash::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--cement);
+}
+.inquiry-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.inquiry-contact-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.inquiry-contact-key {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cement-dark);
+  padding-top: 2px;
+}
+.inquiry-contact-val {
+  font-family: var(--zh-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  transition: color .2s;
+}
+.inquiry-contact-val a:hover { color: var(--white); }
+
+.inquiry-right {
+  padding-bottom: 4px;
+}
+.inquiry-manifesto {
+  font-family: var(--en);
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.2);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  margin-bottom: 48px;
+}
+.inquiry-logo-full {
+  font-family: var(--en);
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--cement-dark);
+  margin-bottom: 8px;
+}
+.inquiry-addr {
+  font-family: var(--zh-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.2);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+.inquiry-footer-line {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 32px;
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-column: 1 / -1;
+}
+.inquiry-copy {
+  font-family: var(--en);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.15);
+}
+
+/* ===== Reveal animations ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal-left.in { opacity: 1; transform: translateX(0); }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+.reveal-delay-4 { transition-delay: .45s; }
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  #nav { padding: 20px 24px; }
+  .hero-sub, .hero-index { display: none; }
+  .portfolio-header { padding: 72px 24px 32px; }
+  .h-scroll-track { padding: 0 24px 32px; }
+  .portfolio-item { flex: 0 0 calc(85vw); }
+  .portfolio-item.featured { flex: 0 0 calc(92vw); }
+  .h-scroll-nav { padding: 0 24px 32px; }
+  .editorial-inner { grid-template-columns: 0 140px 1fr 0; padding: 0 24px; }
+  .ed-body { padding: 0 0 0 40px; }
+  .service-chapter { grid-template-columns: 1fr; min-height: auto; }
+  .service-chapter:nth-child(even) { direction: ltr; }
+  .service-img-wrap { height: 55vw; }
+  .service-text { padding: 56px 36px; }
+  #about { grid-template-columns: 1fr; gap: 56px; padding: 100px 24px; }
+  .about-left { position: static; }
+  #inquiry { grid-template-columns: 1fr; gap: 56px; padding: 96px 24px; }
+  .inquiry-footer-line { grid-column: 1; }
+}
+@media (max-width: 768px) {
+  #nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .nav-year { display: none; }
+  .nav-mobile-btn { display: flex; }
+  .hero-word { font-size: clamp(56px, 16vw, 100px); }
+  .h-scroll-track { padding: 0 16px 24px; gap: 2px; }
+  .portfolio-item { flex: 0 0 92vw; }
+  .portfolio-img { height: 55vw; }
+  .editorial-inner { grid-template-columns: 1fr; padding: 0 20px; }
+  .ed-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0 0 24px;
+    margin-bottom: 32px;
+  }
+  .ed-body { padding: 0; }
+  .ed-figure-grid { grid-template-columns: 1fr; }
+  .ed-figure-grid img { height: 220px; }
+  .service-text { padding: 40px 20px; }
+  .service-prose { max-width: none; }
+  #about { padding: 72px 20px; }
+  #inquiry { padding: 72px 20px; }
+  .inquiry-en { font-size: clamp(48px, 14vw, 80px); }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  body { cursor: auto; }
+  #cursor { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-logo { font-size: 11px; letter-spacing: 0.2em; }
+  .hero-word { font-size: 14vw; letter-spacing: 0.15em; }
+  .portfolio-item { flex: 0 0 88vw; }
+  .ed-sidebar { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+
+<!-- ===== Navigation ===== -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Longpon</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Works</a></li>
+    <li><a href="#editorial">Project 001</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">Practice</a></li>
+    <li><a href="#inquiry">Inquiry</a></li>
+  </ul>
+  <span class="nav-year">Est. 1989</span>
+  <button class="nav-mobile-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section id="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-rule-top"></div>
+  <div class="hero-rule-bottom"></div>
+  <div class="hero-rule-left"></div>
+  <div class="hero-rule-right"></div>
+
+  <div class="hero-wordmark">
+    <span class="hero-word">LONG</span>
+    <div class="hero-divider"></div>
+    <span class="hero-word">PON</span>
+  </div>
+
+  <div class="hero-sub">Reconstructing Taichung Since 1989</div>
+  <div class="hero-index">37 Years · 575 Projects · Grade-A Construction</div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-label">Scroll</span>
+  </div>
+</section>
+
+<!-- ===== Portfolio — Horizontal Scroll ===== -->
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div>
+      <div class="portfolio-label reveal">Selected Works</div>
+      <h2 class="portfolio-title reveal reveal-delay-1">Completed<br>Projects</h2>
+    </div>
+    <div class="portfolio-count reveal">575</div>
+  </div>
+
+  <div class="h-scroll-track" id="hTrack">
+
+    <div class="portfolio-item featured">
+      <img src="https://placehold.co/1200x700/1a1a1a/3a3a3a?text=001+西區王宅+2024" alt="西區王宅重建案" class="portfolio-img" loading="eager">
+      <div class="portfolio-overlay">
+        <div class="portfolio-meta">
+          <div class="portfolio-num">001</div>
+          <div class="portfolio-name">西區王宅</div>
+          <div class="portfolio-info">Taichung West · 2024 · Residential · 12F</div>
+        </div>
+      </div>
+      <div class="portfolio-caption">
+        <div class="caption-year">2024</div>
+        <div class="caption-text">屋齡 52 年老宅重建。危老核准 4.5 個月，容積獎勵 42%，地主 0 自備款。甲級营造，先施工後請款。</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="https://placehold.co/900x700/141414/2a2a2a?text=002+北屯陳厝+2023" alt="北屯陳厝重建案" class="portfolio-img" loading="lazy">
+      <div class="portfolio-overlay">
+        <div class="portfolio-meta">
+          <div class="portfolio-num">002</div>
+          <div class="portfolio-name">北屯陳厝</div>
+          <div class="portfolio-info">Beitun District · 2023 · Residential · 8F</div>
+        </div>
+      </div>
+      <div class="portfolio-caption">
+        <div class="caption-year">2023</div>
+        <div class="caption-text">五戶家族整合，透天改電梯大樓。都更整合 18 個月完成地主整合，容積獎勵 38%。</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="https://placehold.co/900x700/111111/222222?text=003+七期林宅+2023" alt="七期林宅重建案" class="portfolio-img" loading="lazy">
+      <div class="portfolio-overlay">
+        <div class="portfolio-meta">
+          <div class="portfolio-num">003</div>
+          <div class="portfolio-name">七期林宅</div>
+          <div class="portfolio-info">Situn District · 2023 · Residential · 15F</div>
+        </div>
+      </div>
+      <div class="portfolio-caption">
+        <div class="caption-year">2023</div>
+        <div class="caption-text">單一地主危老案，全台中最小面積危老紀錄之一。15 層電梯大廈，容積獎勵 50%。</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="https://placehold.co/900x700/161616/2e2e2e?text=004+南區張宅+2022" alt="南區張宅重建案" class="portfolio-img" loading="lazy">
+      <div class="portfolio-overlay">
+        <div class="portfolio-meta">
+          <div class="portfolio-num">004</div>
+          <div class="portfolio-name">南區張宅</div>
+          <div class="portfolio-info">South District · 2022 · Residential · 6F</div>
+        </div>
+      </div>
+      <div class="portfolio-caption">
+        <div class="caption-year">2022</div>
+        <div class="caption-text">自地自建，地主全程參與設計。格局量身訂製，重建後坪數增加 35%，稅務完整規劃。</div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="https://placehold.co/900x700/121212/262626?text=005+重生之家+2022" alt="重生之家公益案" class="portfolio-img" loading="lazy">
+      <div class="portfolio-overlay">
+        <div class="portfolio-meta">
+          <div class="portfolio-num">005</div>
+          <div class="portfolio-name">重生之家</div>
+          <div class="portfolio-info">Public Welfare · 2022 · Residential · 3F</div>
+        </div>
+      </div>
+      <div class="portfolio-caption">
+        <div class="caption-year">2022</div>
+        <div class="caption-text">公益重建計畫。獨居長者危老老宅，媒合社福資源與政府補助，零費用完成重建。</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="h-scroll-nav">
+    <button class="h-scroll-btn" onclick="hScrollMove(-1)">← Prev</button>
+    <div class="h-scroll-progress">
+      <div class="h-scroll-bar" id="hScrollBar"></div>
+    </div>
+    <button class="h-scroll-btn" onclick="hScrollMove(1)">Next →</button>
+  </div>
+</section>
+
+<!-- ===== Editorial Case: 001 西區王宅 ===== -->
+<section id="editorial" class="editorial-section">
+
+  <!-- Full bleed hero image -->
+  <div class="ed-fullbleed reveal">
+    <img src="https://placehold.co/1920x900/0d0d0d/1e1e1e?text=001+西區王宅・竣工外觀・2024" alt="西區王宅竣工外觀">
+    <div class="ed-fullbleed-caption">Fig. 01 — Exterior, West District, Taichung, 2024</div>
+  </div>
+
+  <div class="editorial-inner" style="margin-top: 80px;">
+    <div class="ed-margin"></div>
+    <div class="ed-sidebar reveal reveal-left">
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">Project No.</span>
+        <span class="ed-sidebar-val en">001</span>
+      </div>
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">案名</span>
+        <span class="ed-sidebar-val">西區王宅</span>
+      </div>
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">竣工</span>
+        <span class="ed-sidebar-val en">2024</span>
+      </div>
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">類型</span>
+        <span class="ed-sidebar-val">危老重建</span>
+      </div>
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">原屋齡</span>
+        <span class="ed-sidebar-val en">52 Years</span>
+      </div>
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">地上層數</span>
+        <span class="ed-sidebar-val en">12 Floors</span>
+      </div>
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">容積獎勵</span>
+        <span class="ed-sidebar-val en">42%</span>
+      </div>
+      <div class="ed-sidebar-item">
+        <span class="ed-sidebar-label">重建工期</span>
+        <span class="ed-sidebar-val en">22 Months</span>
+      </div>
+    </div>
+
+    <div class="ed-body">
+      <div class="ed-chapter reveal">001 / West District / 2024</div>
+      <h2 class="ed-h2 reveal reveal-delay-1">The House<br>Remembers</h2>
+      <div class="ed-h2-zh reveal reveal-delay-2">那棟房子，記得一切</div>
+
+      <p class="ed-body-text reveal reveal-delay-3">
+        王先生的父親在 1972 年蓋了這棟房子。三層透天，外牆洗石子，鋁窗。後來加蓋違建，再後來外牆開始剝落。王先生說，每逢颱風他就失眠，不是擔心漏水，是擔心鄰居。屋齡 52 年的老宅，結構已然超過安全臨界。
+      </p>
+      <p class="ed-body-text en reveal">
+        Fifty-two years of accumulated life — three generations, countless meals, the particular smell of rain on old concrete. To rebuild is not to erase. It is to acknowledge that a structure, like a family, must sometimes be reinforced from the foundation.
+      </p>
+
+      <div class="ed-rule reveal"></div>
+
+      <div class="ed-pull-quote reveal">
+        "我告訴自己，重建不是推掉父親留下來的東西，是把它繼續撐下去。"
+      </div>
+
+      <p class="ed-body-text reveal">
+        隆磐接手這個案子時，第一件事是傾聽。王先生一家對舊宅有極深的情感，對「重建」這個詞帶有某種抗拒。顧問用了三次會面才讓他們明白：這棟房子值得被認真對待，而認真對待的方式，是讓它安全地站著。
+      </p>
+
+      <div class="ed-figure reveal">
+        <img src="https://placehold.co/800x500/111111/222222?text=Fig.02+重建前+外牆現況" alt="重建前外牆現況" loading="lazy">
+        <div class="ed-figure-cap">
+          <div class="ed-figure-num">Fig. 02</div>
+          <div class="ed-figure-text">重建前外牆現況。右下角可見結構裂縫，洗石子外牆多處剝落，鋁窗框架已無法密封。拍攝於 2021 年初評現場。</div>
+        </div>
+      </div>
+
+      <div class="ed-chapter reveal">Process — 危老申請</div>
+      <h2 class="ed-h2 reveal" style="font-size: clamp(32px, 4vw, 56px);">4.5 Months<br>to Approval</h2>
+      <div class="ed-h2-zh reveal reveal-delay-1" style="font-size: clamp(14px, 1.5vw, 18px); margin-bottom: 32px;">核准等待，台中最快紀錄之一</div>
+
+      <p class="ed-body-text reveal">
+        危老重建的審查流程，在業界以繁複著稱。隆磐的做法是在提送前完成所有預備：耐震評估報告、建築師簽證、地主同意書、信託帳戶設立、融資承諾函。一次送件，一次過關。從初評到取得危老核准，歷時 4.5 個月。
+      </p>
+
+      <div class="ed-specs reveal">
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">初評日期</span>
+          <span class="ed-spec-val">2021 年 11 月</span>
+        </div>
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">危老核准</span>
+          <span class="ed-spec-val highlight">2022 年 3 月（4.5 個月）</span>
+        </div>
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">建照取得</span>
+          <span class="ed-spec-val">2022 年 9 月</span>
+        </div>
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">開工</span>
+          <span class="ed-spec-val">2022 年 11 月</span>
+        </div>
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">容積獎勵</span>
+          <span class="ed-spec-val highlight">42%（屋齡 40 年以上 + 結構加分）</span>
+        </div>
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">地主自備款</span>
+          <span class="ed-spec-val highlight">0 元（100% 銀行融資）</span>
+        </div>
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">重建後坪數</span>
+          <span class="ed-spec-val">原 68 坪 → 重建後 116 坪</span>
+        </div>
+        <div class="ed-spec-row">
+          <span class="ed-spec-key">竣工交屋</span>
+          <span class="ed-spec-val">2024 年 8 月</span>
+        </div>
+      </div>
+
+      <div class="ed-figure-grid reveal">
+        <img src="https://placehold.co/600x300/0e0e0e/1f1f1f?text=施工中+結構體" alt="施工中結構體" loading="lazy">
+        <img src="https://placehold.co/600x300/101010/212121?text=竣工+地下一樓車位" alt="竣工地下室" loading="lazy">
+      </div>
+      <div class="ed-figure-cap" style="margin-top: 12px; margin-bottom: 48px;">
+        <div class="ed-figure-num">Fig. 03–04</div>
+        <div class="ed-figure-text">左：施工中鋼筋結構體，地下一層地上十二層。右：竣工地下停車場，每戶一位。兩張均攝於 2023 年第三方驗收現場。</div>
+      </div>
+
+      <div class="ed-chapter reveal">Architect's Note</div>
+      <p class="ed-body-text en reveal" style="max-width: none; font-size: 18px; line-height: 2; color: rgba(255,255,255,0.3);">
+        Architecture that replaces cannot pretend the former building never existed. The proportions of the new structure deliberately echo the original roofline. The stone-washed texture of the entrance lobby — a quiet reference to the洗石子 that covered the old facade. Memory, encoded in material.
+      </p>
+
+      <div class="ed-rule reveal"></div>
+
+      <!-- Testimonial -->
+      <div class="ed-testimonial reveal">
+        <p class="ed-testimonial-text">
+          「我爸爸在世的時候最擔心的就是這棟房子。他走了以後，我花了兩年才鼓起勇氣打電話給隆磐。顧問第一次來的時候，我以為他會跟我說房子要拆掉——結果他問的第一個問題是『您最捨不得這棟房子的哪一個部分？』
+          <br><br>
+          我沒有想到有人會這樣問。」
+        </p>
+        <div class="ed-testimonial-author">Wang Chien-Ming · West District · 2024</div>
+      </div>
+
+      <div class="ed-figure reveal">
+        <img src="https://placehold.co/800x450/0f0f0f/202020?text=竣工+室內+客廳" alt="竣工後室內客廳" loading="lazy">
+        <div class="ed-figure-cap">
+          <div class="ed-figure-num">Fig. 05</div>
+          <div class="ed-figure-text">竣工後室內，客廳朝南採光。業主保留了父親時代的一把老藤椅，放在落地窗旁。攝影：現場記錄，2024 年 9 月。</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="ed-margin"></div>
+  </div>
+
+</section>
+
+<!-- ===== Services: 4 Chapters ===== -->
+<section id="services">
+
+  <!-- Chapter I: 危老重建 -->
+  <div class="service-chapter">
+    <div class="service-img-wrap">
+      <img src="https://placehold.co/960x800/0d0d0d/1c1c1c?text=危老重建・老宅剖面" alt="危老重建" class="service-img" loading="lazy">
+    </div>
+    <div class="service-text reveal">
+      <div class="service-num">Chapter I</div>
+      <h2 class="service-title-en">Urban Hazard<br>Reconstruction</h2>
+      <div class="service-title-zh">危老重建</div>
+      <p class="service-prose">
+        屋齡 30 年以上，耐震能力不足，或外牆有安全疑慮的建物，可依《都市危險及老舊建築物加速重建條例》申請危老重建。隆磐 37 年來深耕台中，締造全市危老審查過件速度最快紀錄，575 件成功案例中逾半屬危老類型。<br><br>
+        地主 0 自備款，100% 銀行融資，重建期間享政府房租補貼。先施工，第三方驗收後再請款。重建後 100% 所有權益歸地主，建商不參與分配。
+      </p>
+      <div class="service-specs">
+        <div class="service-spec">
+          <span class="service-spec-key">Eligibility</span>
+          <span class="service-spec-val">屋齡 ≥ 30 年 · 耐震評估不足</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Incentive</span>
+          <span class="service-spec-val">容積獎勵最高 50%</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Timeline</span>
+          <span class="service-spec-val">審查核准 4–12 個月</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Equity</span>
+          <span class="service-spec-val">100% 歸地主</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter II: 自地自建 -->
+  <div class="service-chapter">
+    <div class="service-img-wrap">
+      <img src="https://placehold.co/960x800/0e0e0e/1e1e1e?text=自地自建・格局規劃" alt="自地自建" class="service-img" loading="lazy">
+    </div>
+    <div class="service-text reveal">
+      <div class="service-num">Chapter II</div>
+      <h2 class="service-title-en">Self-Initiated<br>Development</h2>
+      <div class="service-title-zh">自地自建</div>
+      <p class="service-prose">
+        地主持有土地，由隆磐提供從規劃設計、融資安排、工程監造到稅務規劃的全方位支援。不同於傳統合建，全案管理模式下，地主保有對設計的完整決策權，建商以服務費計酬而非參與分配。<br><br>
+        每一個自地自建案，都是從一張白紙開始的對話——您最希望這個家是什麼樣子？
+      </p>
+      <div class="service-specs">
+        <div class="service-spec">
+          <span class="service-spec-key">Control</span>
+          <span class="service-spec-val">地主保有設計決策權</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Model</span>
+          <span class="service-spec-val">服務費制，非利潤分配</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Finance</span>
+          <span class="service-spec-val">融資方案客製規劃</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Scope</span>
+          <span class="service-spec-val">規劃・設計・監造・稅務・交屋</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter III: 都更整合 -->
+  <div class="service-chapter">
+    <div class="service-img-wrap">
+      <img src="https://placehold.co/960x800/0c0c0c/1a1a1a?text=都市更新・整合協調" alt="都市更新" class="service-img" loading="lazy">
+    </div>
+    <div class="service-text reveal">
+      <div class="service-num">Chapter III</div>
+      <h2 class="service-title-en">Urban<br>Renewal</h2>
+      <div class="service-title-zh">都市更新整合</div>
+      <p class="service-prose">
+        都市更新的難點從來不是法規，而是人。多地主、多產權、多世代——每一個人對「公平」的定義都不同。隆磐 37 年積累的是一種耐心：我們見過幾乎所有形式的地主爭議，也找到過幾乎所有形式的解法。<br><br>
+        整合完成後，容積獎勵、稅務規劃、融資安排、建造監督，全程由隆磐統籌。
+      </p>
+      <div class="service-specs">
+        <div class="service-spec">
+          <span class="service-spec-key">Strength</span>
+          <span class="service-spec-val">多地主整合實績豐富</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Incentive</span>
+          <span class="service-spec-val">容積獎勵 + 稅賦減免</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Timeline</span>
+          <span class="service-spec-val">依整合規模，18–36 個月</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chapter IV: 全案管理 -->
+  <div class="service-chapter">
+    <div class="service-img-wrap">
+      <img src="https://placehold.co/960x800/101010/202020?text=全案管理・施工監督" alt="全案管理" class="service-img" loading="lazy">
+    </div>
+    <div class="service-text reveal">
+      <div class="service-num">Chapter IV</div>
+      <h2 class="service-title-en">Integrated<br>Project<br>Management</h2>
+      <div class="service-title-zh">全案管理</div>
+      <p class="service-prose">
+        從第一次見面到交鑰匙，六個階段，全程透明。評估、整合、規劃、設計、營造、交屋——每個環節都有明確的里程碑與驗收標準。<br><br>
+        銀行、信託、建經，三方公正機構全程查核。先施工，分期第三方驗收確認達標後再請款。42 年甲級自有工班，不轉包。
+      </p>
+      <div class="service-specs">
+        <div class="service-spec">
+          <span class="service-spec-key">Phases</span>
+          <span class="service-spec-val">評估 · 整合 · 規劃 · 設計 · 營造 · 交屋</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Oversight</span>
+          <span class="service-spec-val">銀行 + 信託 + 建經三方查核</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Payment</span>
+          <span class="service-spec-val">先施工，第三方驗收後請款</span>
+        </div>
+        <div class="service-spec">
+          <span class="service-spec-key">Construction</span>
+          <span class="service-spec-val">甲級自有工班，不轉包</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== About / Manifesto ===== -->
+<section id="about">
+  <div class="about-left">
+    <div class="about-label reveal">Practice</div>
+    <h2 class="about-h2 reveal reveal-delay-1">Long<br>Pon</h2>
+    <div class="about-h2-zh reveal reveal-delay-2">隆磐建設<br>股份有限公司</div>
+
+    <div class="about-stats reveal reveal-delay-3">
+      <div>
+        <div class="about-stat-num" id="abt37">37</div>
+        <div class="about-stat-label">年危老都更整合資歷</div>
+      </div>
+      <div>
+        <div class="about-stat-num" id="abt42">42</div>
+        <div class="about-stat-label">年甲級營造品質</div>
+      </div>
+      <div>
+        <div class="about-stat-num" id="abt575">575</div>
+        <div class="about-stat-label">件核准案件數</div>
+      </div>
+      <div>
+        <div class="about-stat-num">#2</div>
+        <div class="about-stat-label">台中危老全國排名</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-right">
+    <p class="about-body-en reveal">
+      Longpon Construction was established in 1982 as a Grade-A construction enterprise. For four decades, we have built not simply structures, but the conditions under which families continue. Our practice is defined by a single conviction: that the built environment should serve the people who inhabit it, not the other way around.
+    </p>
+    <p class="about-body reveal">
+      隆磐建設成立於 1982 年，甲級營造資歷 42 年。1989 年進入台中危老都更整合服務，至今 37 年。我們選擇「全案管理」這個模式，是因為我們相信，地主的利益不應與建商的利益相衝突。
+    </p>
+    <p class="about-body reveal reveal-delay-1">
+      不分配，不佔產權，不推銷。我們的報酬是服務費，我們的成績是地主拿到鑰匙的那一刻。575 件成功案例，台中危老核准案全國第二，兩座國家建築金質獎。數字只是結果，過程是一次又一次的傾聽與信任。
+    </p>
+    <p class="about-body reveal reveal-delay-2">
+      重生之家，是我們對社會最小的承諾：每一年，我們協助數個貧困長者或弱勢家庭完成危老重建，不計報酬。因為好好蓋房子，從來不只是一門生意。
+    </p>
+
+    <div class="about-awards reveal reveal-delay-3">
+      <div class="award-row">
+        <span class="award-year">2023</span>
+        <span class="award-title">國家建築金質獎 第 26 屆<br>National Architecture Golden Quality Award</span>
+      </div>
+      <div class="award-row">
+        <span class="award-year">2022</span>
+        <span class="award-title">國家建築金質獎 第 25 屆<br>National Architecture Golden Quality Award</span>
+      </div>
+      <div class="award-row">
+        <span class="award-year">2023</span>
+        <span class="award-title">創新成就優良獎<br>Innovation Achievement Excellence Award</span>
+      </div>
+      <div class="award-row">
+        <span class="award-year">2024</span>
+        <span class="award-title">台中危老核准案全國第二<br>National #2 — Taichung Urban Hazard Reconstruction</span>
+      </div>
+      <div class="award-row">
+        <span class="award-year">2024</span>
+        <span class="award-title">全國最小面積危老案核准紀錄<br>Smallest Eligible Plot — National Record</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Inquiry / Footer ===== -->
+<section id="inquiry">
+  <div class="inquiry-left reveal">
+    <h2 class="inquiry-en">In<br>quiry</h2>
+    <div class="inquiry-dash">Contact the Practice</div>
+    <div class="inquiry-contact">
+      <div class="inquiry-contact-item">
+        <span class="inquiry-contact-key">Email</span>
+        <span class="inquiry-contact-val"><a href="mailto:service@longpon.com.tw">service@longpon.com.tw</a></span>
+      </div>
+      <div class="inquiry-contact-item">
+        <span class="inquiry-contact-key">Telephone</span>
+        <span class="inquiry-contact-val"><a href="tel:040000000">(04) 0000-0000</a></span>
+      </div>
+      <div class="inquiry-contact-item">
+        <span class="inquiry-contact-key">LINE</span>
+        <span class="inquiry-contact-val"><a href="https://line.me">@longpon</a></span>
+      </div>
+      <div class="inquiry-contact-item">
+        <span class="inquiry-contact-key">Response</span>
+        <span class="inquiry-contact-val">48 小時內回覆完整評估</span>
+      </div>
+      <div class="inquiry-contact-item">
+        <span class="inquiry-contact-key">Location</span>
+        <span class="inquiry-contact-val">台中市，Taiwan</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="inquiry-right reveal reveal-delay-2">
+    <p class="inquiry-manifesto">
+      "We do not build for buildings. We build for the people who will wake up in them every morning for the next fifty years."
+    </p>
+    <div class="inquiry-logo-full">Longpon Construction Co., Ltd.</div>
+    <div class="inquiry-addr">
+      隆磐建設股份有限公司<br>
+      台中市 · 甲級營造業登記<br>
+      危老重建整合服務機構<br>
+      Est. 1982 · Practice Since 1989
+    </div>
+  </div>
+
+  <div class="inquiry-footer-line">
+    <span class="inquiry-copy">© 2024 Longpon Construction Co., Ltd. All rights reserved.</span>
+    <span class="inquiry-copy">Taichung · Taiwan · longpon.com.tw</span>
+  </div>
+</section>
+
+<script>
+// ===== Custom Cursor =====
+const cursor = document.getElementById('cursor');
+let mouseX = 0, mouseY = 0;
+let curX = 0, curY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animateCursor() {
+  curX += (mouseX - curX) * 0.12;
+  curY += (mouseY - curY) * 0.12;
+  cursor.style.left = curX + 'px';
+  cursor.style.top = curY + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, button, .portfolio-item, .service-chapter, .kb-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+document.addEventListener('mousedown', () => cursor.classList.add('click'));
+document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+// ===== Mobile Menu =====
+const menuBtn = document.getElementById('menuBtn');
+menuBtn.addEventListener('click', () => {
+  const nav = document.querySelector('.nav-links');
+  const isOpen = nav.style.display === 'flex';
+  nav.style.display = isOpen ? '' : 'flex';
+  nav.style.flexDirection = 'column';
+  nav.style.position = 'fixed';
+  nav.style.top = '60px';
+  nav.style.left = '0';
+  nav.style.right = '0';
+  nav.style.background = '#0b0b0b';
+  nav.style.padding = '24px';
+  nav.style.gap = '20px';
+  nav.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+  menuBtn.setAttribute('aria-expanded', !isOpen);
+});
+
+// ===== Horizontal Scroll =====
+const hTrack = document.getElementById('hTrack');
+const hScrollBar = document.getElementById('hScrollBar');
+
+function updateScrollBar() {
+  const scrolled = hTrack.scrollLeft;
+  const max = hTrack.scrollWidth - hTrack.clientWidth;
+  const pct = max > 0 ? (scrolled / max) * 80 + 10 : 10;
+  hScrollBar.style.width = pct + '%';
+}
+
+hTrack.addEventListener('scroll', updateScrollBar, { passive: true });
+
+function hScrollMove(dir) {
+  const itemW = hTrack.querySelector('.portfolio-item').offsetWidth + 2;
+  hTrack.scrollBy({ left: dir * itemW, behavior: 'smooth' });
+}
+
+// Touch/drag on track
+let isDragging = false, startX = 0, startScroll = 0;
+hTrack.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.pageX;
+  startScroll = hTrack.scrollLeft;
+  hTrack.style.cursor = 'grabbing';
+});
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+  hTrack.style.cursor = '';
+});
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const dx = e.pageX - startX;
+  hTrack.scrollLeft = startScroll - dx;
+});
+
+// ===== Scroll Reveal =====
+const reveals = document.querySelectorAll('.reveal, .reveal-left');
+const revObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 40);
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revObs.observe(el));
+
+// ===== CountUp for about stats =====
+function countUp(id, target, dur, suffix = '') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const start = performance.now();
+  const tick = now => {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(ease * target) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+const abtObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      countUp('abt37', 37, 1000);
+      countUp('abt42', 42, 1000);
+      countUp('abt575', 575, 1400);
+      abtObs.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const abtSec = document.getElementById('about');
+if (abtSec) abtObs.observe(abtSec);
+
+// ===== Smooth scroll =====
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ===== Parallax on service images =====
+const serviceImgs = document.querySelectorAll('.service-img');
+window.addEventListener('scroll', () => {
+  serviceImgs.forEach(img => {
+    const rect = img.closest('.service-chapter').getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      const offset = (progress - 0.5) * 60;
+      img.style.transform = `translateY(${offset}px) scale(1.08)`;
+    }
+  });
+}, { passive: true });
+
+// ===== Hero entrance =====
+document.addEventListener('DOMContentLoaded', () => {
+  updateScrollBar();
+});
+</script>
+</body>
+</html>

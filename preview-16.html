@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隆磐建設｜Dark Tech Futuristic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Orbitron:wght@600;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:"Rajdhani","Noto Sans TC",sans-serif;background:#080808;color:#fff;line-height:1.7;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(0,212,255,.18),transparent 26%),linear-gradient(45deg,rgba(0,212,255,.06) 1px,transparent 1px);background-size:auto,36px 36px;z-index:-1}a{color:inherit;text-decoration:none}.container{width:min(100% - 44px,1180px);margin:auto}.nav{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(8,8,8,.78);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,212,255,.35)}.navin{height:78px;display:flex;justify-content:space-between;align-items:center}.brand{font-family:Orbitron;color:#00D4FF;letter-spacing:.08em}.links{display:flex;gap:28px;color:rgba(255,255,255,.74)}.menu{display:none;background:#111;color:#00D4FF;border:1px solid #00D4FF;padding:8px 12px}.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:140px 0 80px}.terminal{font-family:Orbitron;font-size:clamp(42px,8vw,104px);line-height:1.05;text-shadow:0 0 24px rgba(0,212,255,.55)}.cursor{color:#39FF14;animation:blink .8s infinite}@keyframes blink{50%{opacity:0}}.lead{max-width:760px;margin:28px auto;color:rgba(255,255,255,.72);font-size:22px}.neonbtn{display:inline-block;border:1px solid #00D4FF;color:#00D4FF;padding:15px 32px;box-shadow:0 0 22px rgba(0,212,255,.32),inset 0 0 18px rgba(0,212,255,.12);font-weight:900}section{padding:112px 0}.title{font-family:Orbitron;font-size:clamp(34px,5vw,68px);color:#00D4FF;text-shadow:0 0 18px rgba(0,212,255,.34)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}.card{background:#1A1A1A;border:1px solid rgba(0,212,255,.35);padding:30px;box-shadow:0 0 18px rgba(0,212,255,.08);transition:.3s}.card:hover{transform:translateY(-8px);box-shadow:0 0 32px rgba(0,212,255,.32)}.card b{color:#39FF14;font-family:Orbitron}.about{display:grid;grid-template-columns:1fr 1fr;gap:34px}.code{background:#101010;border:1px solid rgba(57,255,20,.4);padding:34px;font-family:monospace;color:#39FF14;white-space:pre-line;box-shadow:0 0 22px rgba(57,255,20,.12)}.people{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.people span{border:1px solid rgba(0,212,255,.3);padding:14px;background:#111}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}.num{display:block;font-family:Orbitron;font-size:clamp(56px,9vw,110px);color:#00D4FF;text-shadow:0 0 24px rgba(0,212,255,.5)}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:50px;position:relative}.step{background:#121212;border:1px solid #00D4FF;padding:28px;min-height:260px}.step b{font-family:Orbitron;color:#39FF14;font-size:52px}.claim{background:radial-gradient(circle at 80% 20%,rgba(0,212,255,.28),transparent 35%),#050505;text-align:center;border-top:1px solid #00D4FF;border-bottom:1px solid #00D4FF}.claim h2{font-family:Orbitron;font-size:clamp(38px,6vw,82px)}.footer{background:#030303;border-top:1px solid rgba(0,212,255,.35);padding:70px 0}.foot{display:grid;grid-template-columns:1fr 1fr;gap:40px}.float{position:fixed;right:20px;bottom:22px;display:grid;gap:10px}.float a{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#080808;border:1px solid #00D4FF;color:#00D4FF;box-shadow:0 0 18px rgba(0,212,255,.3)}.reveal{opacity:0;transform:translateY(30px);transition:.75s}.reveal.in{opacity:1;transform:none}
+@media(max-width:900px){.links{display:none;position:absolute;top:78px;left:20px;right:20px;background:#080808;border:1px solid #00D4FF;padding:20px;flex-direction:column}.links.open{display:flex}.menu{display:block}.grid,.about,.people,.stats,.steps,.foot{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header class="nav"><div class="container navin"><a class="brand">LONGPON_SYS</a><nav class="links" data-links><a href="#service">Modules</a><a href="#about">About</a><a href="#process">Process</a><a href="#contact">Contact</a></nav><button class="menu" data-menu>MENU</button></div></header>
+<section class="hero"><div class="container reveal"><h1 class="terminal"><span id="typing"></span><span class="cursor">_</span></h1><p class="lead">以高科技專案管理視角重新定義危老重建：資料化評估、跨領域整合、融資信託與甲級營造管理。</p><a class="neonbtn" href="#contact">立即免費評估 →</a></div></section>
+<section id="service"><div class="container reveal"><h2 class="title">SERVICE MODULES</h2><div class="grid"><article class="card"><b>01</b><h3>危老重建</h3><p>重建評估、住戶整合與計畫推動。</p></article><article class="card"><b>02</b><h3>建築設計</h3><p>基地條件與建築價值模擬。</p></article><article class="card"><b>03</b><h3>自地自建</h3><p>客製化建築專案管理。</p></article><article class="card"><b>04</b><h3>稅務規劃</h3><p>稅務法律與資金風險控管。</p></article><article class="card"><b>05</b><h3>大小面積合建</h3><p>權益模型與合作模式設計。</p></article><article class="card"><b>06</b><h3>銀行融資</h3><p>土建融資、信託與資金配置。</p></article></div></div></section>
+<section id="about"><div class="container about"><div class="code reveal">// ABOUT LONGPON
+> Team Work 跨領域整合
+> 甲級營造廠認證
+> 地籍、稅務、法律、建築、工程
+> 200+ 場危老重建說明會
+> 第26屆國家建築金質獎</div><div class="people reveal"><span>環境規劃師</span><span>危老都更推動師</span><span>不動產分析師</span><span>結構土木技師</span><span>水保技師</span><span>機電技師</span><span>建築師</span><span>會計師</span><span>律師</span><span>營造工程顧問</span></div></div></section>
+<section><div class="container stats reveal"><div><span class="num" data-count="200" data-suffix="+">0</span>SEMINARS</div><div><span class="num" data-count="26" data-suffix="TH">0</span>AWARD</div><div><span class="num">A+</span>BUILDER</div></div></section>
+<section id="process"><div class="container reveal"><h2 class="title">PROCESS FLOW</h2><div class="steps"><article class="step"><b>01</b><h3>PLAN</h3><p>規劃設計、成本估算、融資信託。</p></article><article class="step"><b>02</b><h3>SELL</h3><p>市場定位、合約訂定、銷售管控。</p></article><article class="step"><b>03</b><h3>BUILD</h3><p>施工品質、進度監督、工程查核。</p></article><article class="step"><b>04</b><h3>DELIVER</h3><p>使照取得、驗收交屋、全案結算。</p></article></div></div></section>
+<section class="claim"><div class="container reveal"><h2>只要一個改變，價值翻倍</h2><p>VALUE_MULTIPLIED_BY_REDEVELOPMENT</p><a class="neonbtn" href="#contact">START PROJECT</a></div></section>
+<footer id="contact" class="footer"><div class="container foot"><h2 class="title">CONTACT</h2><p>PHONE / 04-23756168<br>MAIL / longpon.co@gmail.com<br>ADDR / 台中市西區五權路2-106號5F<br>OPEN / 09:00–18:00</p></div></footer>
+<div class="float"><a>FB</a><a>LN</a><a href="tel:0423756168">☎</a></div>
+<script>
+const txt='危老都更重建專家';
+let i=0;const el=document.getElementById('typing');
+const type=()=>{ if(i<=txt.length){el.textContent=txt.slice(0,i++);setTimeout(type,130)} };
+type();
+window.addEventListener('mousemove',e=>{document.body.style.setProperty('--x',e.clientX+'px');document.body.style.setProperty('--y',e.clientY+'px')});
+</script>
+
+<script>
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12, rootMargin:'0px 0px -70px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+document.querySelectorAll('[data-count]').forEach(el=>{
+  let done=false;
+  const obs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting && !done){
+      done=true;
+      const target=Number(el.dataset.count);
+      const suffix=el.dataset.suffix || '';
+      const prefix=el.dataset.prefix || '';
+      const start=performance.now();
+      const duration=1400;
+      const tick=(now)=>{
+        const p=Math.min((now-start)/duration,1);
+        const eased=1-Math.pow(1-p,3);
+        el.textContent=prefix+Math.floor(target*eased)+suffix;
+        if(p<1) requestAnimationFrame(tick);
+        else el.textContent=prefix+target+suffix;
+      };
+      requestAnimationFrame(tick);
+      obs.disconnect();
+    }
+  },{threshold:.45});
+  obs.observe(el);
+});
+
+const menu=document.querySelector('[data-menu]');
+const links=document.querySelector('[data-links]');
+if(menu && links){
+  menu.addEventListener('click',()=>links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+}
+</script>
+
+</body></html>

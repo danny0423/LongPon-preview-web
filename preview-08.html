@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>隆磐建設 Longpon｜Interactive 3D Reconstruction</title>
+  <meta name="description" content="隆磐建設 Interactive 3D 官網概念稿。透過 3D 老屋重建動畫，呈現台中危老重建、自地自建、都市更新與全案管理服務。" />
+  <meta name="keywords" content="隆磐建設, Longpon, 3D 重建動畫, 台中危老重建, 自地自建, 都市更新, 全案管理" />
+  <meta name="author" content="Longpon Construction" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="隆磐建設 Longpon｜Interactive 3D Reconstruction" />
+  <meta property="og:description" content="點擊啟動重建：老屋拆除，新大樓升起。以沉浸式 3D 體驗重新理解危老重建。" />
+  <meta property="og:image" content="https://placehold.co/1600x900/050507/00F0FF?text=LONGPON+3D" />
+  <meta property="og:locale" content="zh_TW" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="隆磐建設 Longpon｜Interactive 3D Reconstruction" />
+  <meta name="twitter:description" content="點擊啟動重建：老屋拆除，新大樓升起。以 3D 體驗呈現危老重建。" />
+  <meta name="twitter:image" content="https://placehold.co/1600x900/050507/00F0FF?text=LONGPON+3D" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --space: #050507;
+      --cyan: #00F0FF;
+      --magenta: #FF2D87;
+      --text: #F8F8F8;
+      --muted: rgba(248, 248, 248, .68);
+      --glass: rgba(255, 255, 255, .08);
+      --glass-strong: rgba(255, 255, 255, .14);
+      --line: rgba(255, 255, 255, .14);
+      --font-en: "Space Grotesk", system-ui, sans-serif;
+      --font-tc: "Noto Sans TC", system-ui, sans-serif;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      --max: 1440px;
+      --header-h: 76px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--space);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 22%, rgba(0, 240, 255, .24), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(255, 45, 135, .22), transparent 30%),
+        radial-gradient(circle at 50% 82%, rgba(99, 91, 255, .18), transparent 38%),
+        var(--space);
+      font-family: var(--font-tc);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        linear-gradient(115deg, rgba(0,240,255,.08), transparent 32%, rgba(255,45,135,.08)),
+        radial-gradient(circle at 50% 50%, transparent 0 42%, rgba(0,0,0,.5) 100%);
+      opacity: .9;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: .12;
+      mix-blend-mode: screen;
+      background-image:
+        repeating-radial-gradient(circle at 20% 30%, rgba(255,255,255,.35) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 3px);
+      background-size: 180px 180px, 100% 4px;
+    }
+
+    a,
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+      color: inherit;
+      cursor: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 10000;
+      transform: translateY(-160%);
+      padding: 10px 14px;
+      background: var(--cyan);
+      color: var(--space);
+      border-radius: 999px;
+      font-weight: 900;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(0, 240, 255, .86);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      transform: translate(-50%, -50%);
+      transition: width .22s var(--ease), height .22s var(--ease), border-color .22s var(--ease), background .22s var(--ease), box-shadow .22s var(--ease);
+      box-shadow: 0 0 22px rgba(0, 240, 255, .42);
+      mix-blend-mode: screen;
+    }
+
+    .cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: var(--magenta);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10002;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 16px rgba(255,45,135,.8);
+    }
+
+    .cursor.is-hover {
+      width: 72px;
+      height: 72px;
+      background: rgba(0, 240, 255, .08);
+      border-color: rgba(255,45,135,.96);
+      box-shadow: 0 0 34px rgba(255,45,135,.52);
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background: #050507;
+      transition: opacity .8s var(--ease), visibility .8s var(--ease);
+    }
+
+    .loader.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-card {
+      width: min(420px, calc(100% - 48px));
+      text-align: center;
+    }
+
+    .loader-logo {
+      font-family: var(--font-en);
+      font-weight: 700;
+      font-size: clamp(46px, 10vw, 86px);
+      letter-spacing: .04em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(248,248,248,.85);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-logo::before {
+      content: "LONGPON";
+      position: absolute;
+      inset: 0;
+      color: var(--cyan);
+      clip-path: inset(0 100% 0 0);
+      animation: logoDraw 1.6s var(--ease) forwards;
+      text-shadow: 0 0 24px rgba(0,240,255,.7);
+    }
+
+    @keyframes logoDraw {
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    .loader-line {
+      margin-top: 22px;
+      height: 1px;
+      background: rgba(255,255,255,.12);
+      overflow: hidden;
+    }
+
+    .loader-line span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      transform: translateX(-100%);
+      animation: lineLoad 1.8s var(--ease) forwards;
+    }
+
+    @keyframes lineLoad {
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--header-h);
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(5,5,7,.48);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .site-header__inner {
+      width: min(calc(100% - 40px), var(--max));
+      height: 100%;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-en);
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(0,240,255,.75);
+      border-radius: 12px;
+      position: relative;
+      box-shadow: 0 0 24px rgba(0,240,255,.25);
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(255,45,135,.75);
+      transform: rotate(45deg);
+    }
+
+    .brand-mark::after {
+      inset: 12px;
+      border-color: rgba(255,255,255,.55);
+      transform: rotate(0);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav a {
+      color: rgba(248,248,248,.72);
+      font-size: 13px;
+      transition: color .2s var(--ease);
+    }
+
+    .nav a:hover {
+      color: var(--cyan);
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(0,240,255,.45);
+      background: rgba(0,240,255,.08);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 13px;
+      box-shadow: inset 0 0 18px rgba(0,240,255,.08);
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(82px, 10vw, 160px) 0;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--cyan);
+      font-family: var(--font-en);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: var(--font-en);
+      font-size: clamp(42px, 8vw, 108px);
+      line-height: .92;
+      letter-spacing: -.06em;
+      text-transform: uppercase;
+    }
+
+    .section-title .accent {
+      display: inline-block;
+      color: transparent;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .section-lead {
+      width: min(680px, 100%);
+      margin: 26px 0 0;
+      color: var(--muted);
+      line-height: 2;
+      font-size: 17px;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: calc(var(--header-h) + 48px) 0 56px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      width: min(calc(100% - 40px), var(--max));
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(420px, .92fr);
+      align-items: center;
+      gap: clamp(28px, 5vw, 80px);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 4;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 8px 12px;
+      color: rgba(248,248,248,.78);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(18px);
+      font-size: 13px;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(0,240,255,.9);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-family: var(--font-en);
+      font-size: clamp(52px, 8.4vw, 132px);
+      line-height: .9;
+      letter-spacing: -.07em;
+      text-transform: uppercase;
+    }
+
+    .hero-title .gradient {
+      color: transparent;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: 0 0 28px rgba(0,240,255,.12);
+    }
+
+    .hero-sub {
+      width: min(650px, 100%);
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.5vw, 20px);
+      line-height: 2;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      overflow: hidden;
+      transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+      backdrop-filter: blur(18px);
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(90deg, rgba(0,240,255,.28), rgba(255,45,135,.28));
+      opacity: 0;
+      transition: opacity .25s var(--ease);
+    }
+
+    .btn span {
+      position: relative;
+      z-index: 1;
+      font-weight: 800;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0,240,255,.58);
+      box-shadow: 0 0 40px rgba(0,240,255,.18);
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary {
+      border-color: rgba(0,240,255,.56);
+      background: linear-gradient(90deg, rgba(0,240,255,.16), rgba(255,45,135,.14));
+      box-shadow: 0 0 34px rgba(0,240,255,.18);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      width: min(680px, 100%);
+      margin-top: 44px;
+    }
+
+    .hero-stat {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-family: var(--font-en);
+      font-size: 34px;
+      line-height: 1;
+      color: var(--cyan);
+    }
+
+    .hero-stat span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(248,248,248,.62);
+      font-size: 13px;
+    }
+
+    .scene-shell {
+      position: relative;
+      min-height: 620px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03)),
+        radial-gradient(circle at 50% 20%, rgba(0,240,255,.12), transparent 50%);
+      overflow: hidden;
+      box-shadow:
+        0 40px 120px rgba(0,0,0,.36),
+        inset 0 0 60px rgba(255,255,255,.04);
+      backdrop-filter: blur(24px);
+    }
+
+    .scene-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(transparent 0 92%, rgba(0,240,255,.12)),
+        radial-gradient(circle at 50% 50%, transparent 0 48%, rgba(5,5,7,.55) 100%);
+    }
+
+    .scene-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .scene-ui {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 22px;
+      background: rgba(5,5,7,.54);
+      backdrop-filter: blur(22px);
+    }
+
+    .scene-status {
+      color: rgba(248,248,248,.72);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .scene-status strong {
+      display: block;
+      color: var(--text);
+      font-family: var(--font-en);
+      font-size: 15px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .scene-btn {
+      min-width: 152px;
+      min-height: 48px;
+      border-radius: 999px;
+      color: #050507;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      box-shadow: 0 0 34px rgba(0,240,255,.28);
+      transition: transform .25s var(--ease), filter .25s var(--ease);
+    }
+
+    .scene-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.12);
+    }
+
+    .scene-badge {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      background: rgba(5,5,7,.45);
+      backdrop-filter: blur(18px);
+      color: rgba(248,248,248,.72);
+      font-family: var(--font-en);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .scene-badge::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--magenta);
+      box-shadow: 0 0 16px rgba(255,45,135,.9);
+    }
+
+    .floating-orb {
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(14px);
+      opacity: .72;
+      pointer-events: none;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .orb-1 {
+      width: 280px;
+      height: 280px;
+      right: 6vw;
+      top: 18vh;
+      background: rgba(0,240,255,.18);
+    }
+
+    .orb-2 {
+      width: 220px;
+      height: 220px;
+      left: 8vw;
+      bottom: 10vh;
+      background: rgba(255,45,135,.16);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 48px;
+      perspective: 1200px;
+    }
+
+    .service-card {
+      position: relative;
+      min-height: 280px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      transform-style: preserve-3d;
+      transition: transform .28s var(--ease), border-color .28s var(--ease), box-shadow .28s var(--ease);
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(0,240,255,.45), transparent 35%, rgba(255,45,135,.4));
+      opacity: 0;
+      transition: opacity .28s var(--ease);
+      z-index: -1;
+    }
+
+    .service-card:hover {
+      border-color: rgba(0,240,255,.4);
+      box-shadow: 0 0 50px rgba(0,240,255,.12);
+      transform: rotateX(8deg) rotateY(-8deg) translateY(-8px);
+    }
+
+    .service-card:hover::before {
+      opacity: .48;
+    }
+
+    .card-number {
+      font-family: var(--font-en);
+      color: rgba(248,248,248,.34);
+      font-size: 13px;
+      letter-spacing: .14em;
+    }
+
+    .card-icon {
+      width: 74px;
+      height: 74px;
+      margin: 48px 0 34px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0,240,255,.22);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(0,240,255,.28), transparent 46%),
+        rgba(255,255,255,.05);
+      box-shadow: inset 0 0 24px rgba(0,240,255,.06);
+      transform: translateZ(36px);
+    }
+
+    .card-icon svg {
+      width: 42px;
+      height: 42px;
+      stroke: var(--cyan);
+      filter: drop-shadow(0 0 10px rgba(0,240,255,.45));
+    }
+
+    .service-card h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -.03em;
+    }
+
+    .service-card p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 14px;
+    }
+
+    .tunnel {
+      position: relative;
+      margin-top: 52px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 20px 0 36px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,240,255,.45) rgba(255,255,255,.08);
+    }
+
+    .tunnel-track {
+      display: flex;
+      gap: 18px;
+      min-width: 1180px;
+      padding-right: 20px;
+    }
+
+    .tunnel-node {
+      position: relative;
+      flex: 0 0 220px;
+      min-height: 320px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.035)),
+        radial-gradient(circle at 50% 10%, rgba(0,240,255,.13), transparent 52%);
+      backdrop-filter: blur(18px);
+      transform: translateZ(0);
+    }
+
+    .tunnel-node::after {
+      content: "";
+      position: absolute;
+      top: 88px;
+      right: -20px;
+      width: 22px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+    }
+
+    .tunnel-node:last-child::after {
+      display: none;
+    }
+
+    .node-orbit {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,240,255,.28);
+      display: grid;
+      place-items: center;
+      margin-bottom: 34px;
+      box-shadow: inset 0 0 26px rgba(0,240,255,.08), 0 0 26px rgba(0,240,255,.09);
+      transform-style: preserve-3d;
+      animation: floatY 4.8s ease-in-out infinite;
+    }
+
+    .tunnel-node:nth-child(even) .node-orbit {
+      animation-delay: -1.4s;
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0) rotateX(0deg); }
+      50% { transform: translateY(-12px) rotateX(18deg); }
+    }
+
+    .node-orbit span {
+      font-family: var(--font-en);
+      font-size: 24px;
+      color: var(--cyan);
+    }
+
+    .tunnel-node h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .tunnel-node p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-top: 52px;
+    }
+
+    .comparison-card,
+    .particle-card {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 30px;
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      min-height: 520px;
+    }
+
+    .comparison-card {
+      padding: 20px;
+    }
+
+    .before-after {
+      position: relative;
+      height: 430px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #111;
+      user-select: none;
+    }
+
+    .before-after img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.9) contrast(1.05);
+    }
+
+    .before-img {
+      filter: grayscale(1) contrast(1.1) !important;
+    }
+
+    .after-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      width: 56%;
+    }
+
+    .ba-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 56%;
+      width: 2px;
+      background: var(--cyan);
+      box-shadow: 0 0 28px rgba(0,240,255,.8);
+      transform: translateX(-50%);
+    }
+
+    .ba-handle {
+      position: absolute;
+      top: 50%;
+      left: 56%;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(5,5,7,.78);
+      border: 1px solid rgba(0,240,255,.72);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 34px rgba(0,240,255,.38);
+      color: var(--text);
+      font-family: var(--font-en);
+      font-weight: 800;
+      z-index: 5;
+    }
+
+    .ripple {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 1px solid rgba(0,240,255,.85);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      animation: ripple .7s ease-out forwards;
+      z-index: 6;
+    }
+
+    @keyframes ripple {
+      to {
+        width: 150px;
+        height: 150px;
+        opacity: 0;
+      }
+    }
+
+    .comparison-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .comparison-meta strong {
+      color: var(--text);
+    }
+
+    .particle-card {
+      position: relative;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(0,240,255,.16), transparent 42%),
+        rgba(255,255,255,.055);
+    }
+
+    .particle-number {
+      font-family: var(--font-en);
+      font-size: clamp(82px, 12vw, 170px);
+      font-weight: 700;
+      line-height: .84;
+      letter-spacing: -.08em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(0,240,255,.84);
+      text-shadow: 0 0 32px rgba(0,240,255,.35);
+    }
+
+    .particle-number small {
+      display: block;
+      margin-top: 20px;
+      font-family: var(--font-tc);
+      font-size: 18px;
+      letter-spacing: .08em;
+      color: var(--text);
+      -webkit-text-stroke: 0;
+      text-shadow: none;
+    }
+
+    .particle-dots {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle-dots i {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px rgba(0,240,255,.85);
+      animation: drift 7s ease-in-out infinite;
+      opacity: .7;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0,0,0); opacity: .25; }
+      50% { transform: translate3d(18px,-22px,0); opacity: .95; }
+    }
+
+    .form-panel {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .form-copy,
+    .form-box {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 30px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(18px);
+      padding: clamp(24px, 4vw, 42px);
+    }
+
+    .form-copy h3 {
+      margin: 0;
+      font-family: var(--font-en);
+      font-size: clamp(36px, 5vw, 70px);
+      line-height: .95;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+    }
+
+    .form-copy p {
+      margin: 22px 0 0;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      color: rgba(248,248,248,.72);
+      font-size: 13px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 16px;
+      background: rgba(5,5,7,.48);
+      color: var(--text);
+      padding: 14px 15px;
+      outline: none;
+      transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(0,240,255,.72);
+      box-shadow: 0 0 0 4px rgba(0,240,255,.08);
+    }
+
+    .sticky-bar {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 90;
+      width: min(calc(100% - 32px), 780px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 10px 10px 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      background: rgba(5,5,7,.72);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.36);
+    }
+
+    .sticky-bar p {
+      margin: 0;
+      color: rgba(248,248,248,.72);
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sticky-bar a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 999px;
+      color: #050507;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .site-footer {
+      padding: 64px 0 120px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      color: rgba(248,248,248,.6);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .footer-grid h2,
+    .footer-grid h3 {
+      margin: 0 0 16px;
+      color: var(--text);
+      font-family: var(--font-en);
+      text-transform: uppercase;
+      letter-spacing: -.03em;
+    }
+
+    .footer-grid h2 {
+      font-size: 40px;
+    }
+
+    .footer-grid p,
+    .footer-grid a {
+      display: block;
+      margin: 0 0 9px;
+      color: rgba(248,248,248,.6);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1180px) {
+      .hero-grid,
+      .showcase-grid,
+      .form-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .scene-shell {
+        min-height: 540px;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        cursor: auto;
+      }
+
+      a,
+      button,
+      input,
+      select,
+      textarea {
+        cursor: pointer;
+      }
+
+      .cursor,
+      .cursor-dot {
+        display: none;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .site-header__inner,
+      .container,
+      .hero-grid {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+
+      .header-cta {
+        padding: 9px 12px;
+        font-size: 12px;
+      }
+
+      .hero {
+        padding-top: 112px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: clamp(50px, 16vw, 80px);
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .scene-shell {
+        min-height: 470px;
+        border-radius: 24px;
+      }
+
+      .scene-ui {
+        grid-template-columns: 1fr;
+      }
+
+      .scene-btn {
+        width: 100%;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .showcase-grid {
+        gap: 18px;
+      }
+
+      .comparison-card,
+      .particle-card {
+        min-height: auto;
+        border-radius: 24px;
+      }
+
+      .before-after {
+        height: 330px;
+      }
+
+      .comparison-meta {
+        display: block;
+      }
+
+      .comparison-meta span {
+        display: block;
+        margin-top: 6px;
+      }
+
+      .sticky-bar {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: auto;
+        transform: none;
+        border-radius: 24px;
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-bar p {
+        white-space: normal;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 72px 0;
+      }
+
+      .section-title {
+        font-size: 44px;
+      }
+
+      .scene-shell {
+        min-height: 420px;
+      }
+
+      .scene-badge {
+        font-size: 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">跳到主要內容</a>
+
+  <div class="loader" id="loader" aria-label="網站載入中">
+    <div class="loader-card">
+      <div class="loader-logo">LONGPON</div>
+      <div class="loader-line"><span></span></div>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="floating-orb orb-1" data-parallax="0.18" aria-hidden="true"></div>
+  <div class="floating-orb orb-2" data-parallax="0.12" aria-hidden="true"></div>
+
+  <header class="site-header" aria-label="網站導覽">
+    <div class="site-header__inner">
+      <a href="#top" class="brand" data-hover>
+        <span class="brand-mark" aria-hidden="true"></span>
+        LONGPON
+      </a>
+
+      <nav class="nav" aria-label="主要導覽">
+        <a href="#rebuild" data-hover>3D Rebuild</a>
+        <a href="#services" data-hover>Services</a>
+        <a href="#process" data-hover>Process</a>
+        <a href="#cases" data-hover>Cases</a>
+      </nav>
+
+      <a href="#contact" class="header-cta" data-hover>立即評估 →</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <div class="hero-kicker">Interactive 3D Reconstruction Experience</div>
+          <h1 id="hero-title" class="hero-title">
+            老屋拆除，<br>
+            <span class="gradient">新生活升起。</span>
+          </h1>
+          <p class="hero-sub">
+            隆磐建設以危老重建、自地自建、都市更新與全案管理，將複雜的法規、融資、信託、營造與交屋流程，轉化成屋主看得懂、能信任、可追蹤的重建旅程。
+          </p>
+
+          <div class="hero-actions">
+            <a href="#rebuild" class="btn btn-primary" data-hover><span>啟動 3D 重建體驗</span></a>
+            <a href="#contact" class="btn" data-hover><span>提交基地評估</span></a>
+          </div>
+
+          <div class="hero-stats" aria-label="隆磐重點數據">
+            <div class="hero-stat">
+              <strong data-count="575">0</strong>
+              <span>台中危老核准案數，全國第 2</span>
+            </div>
+            <div class="hero-stat">
+              <strong data-count="37">0</strong>
+              <span>都更危老整合經驗</span>
+            </div>
+            <div class="hero-stat">
+              <strong data-count="42">0</strong>
+              <span>甲級營造資歷</span>
+            </div>
+          </div>
+        </div>
+
+        <section id="rebuild" class="scene-shell reveal" aria-label="3D 老屋重建動畫">
+          <div class="scene-badge">Three.js Scene / Lazy Mounted</div>
+          <div id="sceneCanvas" class="scene-canvas"></div>
+          <div class="scene-ui">
+            <div class="scene-status" id="sceneStatus">
+              <strong>Old House Mode</strong>
+              點擊啟動重建：老屋拆除，新大樓升起。
+            </div>
+            <button type="button" id="rebuildBtn" class="scene-btn" data-hover>啟動重建</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="services" class="section" aria-labelledby="services-title">
+      <div class="container">
+        <p class="eyebrow reveal">Four Reconstruction Systems</p>
+        <h2 id="services-title" class="section-title reveal">
+          From Land to <span class="accent">Future</span>
+        </h2>
+        <p class="section-lead reveal">
+          這不是單純的建築網站，而是一套把屋主需求、家族權益、資金安全與營造品質整合在一起的重建產品體驗。
+        </p>
+
+        <div class="cards-grid">
+          <article class="service-card reveal" data-hover>
+            <div class="card-number">01 / DANGER BUILDING</div>
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M10 50h44M16 50V26l16-12 16 12v24M24 50V34h16v16M16 30h32" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>危老重建</h3>
+            <p>快速判斷屋齡、結構、基地條件與容積獎勵，讓老屋安全問題變成可執行的重建計畫。</p>
+          </article>
+
+          <article class="service-card reveal" data-hover>
+            <div class="card-number">02 / PRIVATE LAND</div>
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M12 48l20 8 20-8V16l-20-8-20 8v32zM32 8v48M12 16l20 8 20-8" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>自地自建</h3>
+            <p>保有土地主體性，由屋主掌握重建後權益，搭配融資、設計與營造管理完成新家。</p>
+          </article>
+
+          <article class="service-card reveal" data-hover>
+            <div class="card-number">03 / URBAN RENEWAL</div>
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M10 54h44M16 54V18h12v36M36 54V10h12v44M20 26h4M20 34h4M20 42h4M40 20h4M40 28h4M40 36h4M40 44h4" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>都市更新</h3>
+            <p>多人地主、多方權益與審查流程，以透明節點與制度化文件降低整合摩擦。</p>
+          </article>
+
+          <article class="service-card reveal" data-hover>
+            <div class="card-number">04 / FULL MANAGEMENT</div>
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path d="M32 8l20 10v14c0 13-8 22-20 26-12-4-20-13-20-26V18L32 8zM23 33l6 6 13-15" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>全案管理</h3>
+            <p>銀行、信託、建經、營造、稅務與交屋一條龍，讓屋主不用自己面對整套重建系統。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="section" aria-labelledby="process-title">
+      <div class="container">
+        <p class="eyebrow reveal">Horizontal Timeline Tunnel</p>
+        <h2 id="process-title" class="section-title reveal">
+          Six Gates to <span class="accent">Rebuild</span>
+        </h2>
+        <p class="section-lead reveal">
+          從評估到交屋，每一個節點都像穿越一段時間隧道：確認權益、降低風險、完成家的下一個版本。
+        </p>
+
+        <div class="tunnel reveal" aria-label="全案管理時間隧道，可水平捲動">
+          <div class="tunnel-track">
+            <article class="tunnel-node" data-hover>
+              <div class="node-orbit"><span>01</span></div>
+              <h3>評估</h3>
+              <p>屋齡、基地、結構、法規與融資初評，建立第一份可行性輪廓。</p>
+            </article>
+            <article class="tunnel-node" data-hover>
+              <div class="node-orbit"><span>02</span></div>
+              <h3>整合</h3>
+              <p>協助家族與地主整合意見，釐清權益、需求與決策節點。</p>
+            </article>
+            <article class="tunnel-node" data-hover>
+              <div class="node-orbit"><span>03</span></div>
+              <h3>規劃</h3>
+              <p>容積、樓層、坪數、財務與重建期程進入可討論的具體模型。</p>
+            </article>
+            <article class="tunnel-node" data-hover>
+              <div class="node-orbit"><span>04</span></div>
+              <h3>設計</h3>
+              <p>把家族生活、採光、動線與外觀轉譯成可施工的設計圖面。</p>
+            </article>
+            <article class="tunnel-node" data-hover>
+              <div class="node-orbit"><span>05</span></div>
+              <h3>營造</h3>
+              <p>工程進度、品質查核與第三方驗收，降低屋主對施工的不確定感。</p>
+            </article>
+            <article class="tunnel-node" data-hover>
+              <div class="node-orbit"><span>06</span></div>
+              <h3>交屋</h3>
+              <p>完成驗收、結算與移交，讓老屋重建變成下一代可以居住的資產。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases" class="section" aria-labelledby="cases-title">
+      <div class="container">
+        <p class="eyebrow reveal">Case Interaction</p>
+        <h2 id="cases-title" class="section-title reveal">
+          Before / After <span class="accent">Ripple</span>
+        </h2>
+        <p class="section-lead reveal">
+          以 before / after 拉桿呈現老屋與重建後的差異。拉動時產生粒子漣漪，象徵從舊街廓擴散出的新生活。
+        </p>
+
+        <div class="showcase-grid">
+          <article class="comparison-card reveal">
+            <div class="before-after" id="beforeAfter" data-hover aria-label="重建前後比較拉桿">
+              <img class="before-img" src="https://placehold.co/1200x850/1c1c1c/f5f5f5?text=Before+Old+House" alt="重建前老屋示意" loading="lazy" />
+              <div class="after-wrap" id="afterWrap">
+                <img src="https://placehold.co/1200x850/0b2630/00F0FF?text=After+New+Building" alt="重建後新大樓示意" loading="lazy" />
+              </div>
+              <div class="ba-line" id="baLine"></div>
+              <div class="ba-handle" id="baHandle">↔</div>
+            </div>
+            <div class="comparison-meta">
+              <strong>西區王宅 / 危老重建</strong>
+              <span>屋齡 48 年 → 地上 12 層｜預估容積獎勵 32%</span>
+            </div>
+          </article>
+
+          <article class="particle-card reveal" data-hover aria-label="粒子數據展示">
+            <div class="particle-dots" id="particleDots" aria-hidden="true"></div>
+            <div class="particle-number">
+              575
+              <small>台中危老核准案數，全國第 2</small>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="container">
+        <p class="eyebrow reveal">48 Hours Assessment</p>
+        <h2 id="contact-title" class="section-title reveal">
+          Drop Your <span class="accent">Land ID</span>
+        </h2>
+
+        <div class="form-panel">
+          <div class="form-copy reveal">
+            <h3>把您的地號丟給我們。</h3>
+            <p>
+              我們會依據屋齡、基地位置、面積、都市計畫條件與目前使用狀況，初步整理危老重建或自地自建方向。此表單為前端展示稿，送出後以 mailto 暫代後端。
+            </p>
+          </div>
+
+          <form class="form-box contact-form reveal" action="mailto:service@longpon.com.tw" method="post" enctype="text/plain">
+            <div class="field">
+              <label for="name">姓名</label>
+              <input id="name" name="姓名" type="text" placeholder="王先生 / 陳小姐" required />
+            </div>
+            <div class="field">
+              <label for="phone">手機</label>
+              <input id="phone" name="手機" type="tel" placeholder="09xx xxx xxx" required />
+            </div>
+            <div class="field">
+              <label for="land">基地位置或地號</label>
+              <input id="land" name="基地位置或地號" type="text" placeholder="台中市西區 / 北屯區 / 地號" required />
+            </div>
+            <div class="field">
+              <label for="message">想了解的內容</label>
+              <textarea id="message" name="想了解的內容" placeholder="例如：危老資格、容積獎勵、自地自建、融資與房租補貼"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" data-hover><span>送出評估需求 →</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="sticky-bar" aria-label="固定底部行動呼籲">
+    <p>準備開始重建？先用 48 小時取得基地初評方向。</p>
+    <a href="#contact" data-hover>立即評估 →</a>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h2>LONGPON</h2>
+        <p>隆磐建設股份有限公司</p>
+        <p>Reconstructing Taichung Since 1989</p>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <a href="#services" data-hover>危老重建</a>
+        <a href="#services" data-hover>自地自建</a>
+        <a href="#services" data-hover>都市更新</a>
+        <a href="#services" data-hover>全案管理</a>
+      </div>
+      <div>
+        <h3>Proof</h3>
+        <p>國家建築金質獎 第 25、26 屆</p>
+        <p>台中危老核准案數全國第 2</p>
+        <p>都更危老整合 37 年</p>
+      </div>
+      <div>
+        <h3>Inquiry</h3>
+        <a href="mailto:service@longpon.com.tw" data-hover>service@longpon.com.tw</a>
+        <a href="tel:0423756168" data-hover>04-2375-6168</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://www.longpon.com.tw/#business",
+        "name": "隆磐建設股份有限公司",
+        "alternateName": "Longpon Construction",
+        "url": "https://www.longpon.com.tw/",
+        "telephone": "+886-4-2375-6168",
+        "areaServed": "Taichung, Taiwan",
+        "description": "台中危老重建、自地自建、都市更新與全案管理服務。"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.longpon.com.tw/#website",
+        "name": "隆磐建設 Longpon Interactive 3D",
+        "url": "https://www.longpon.com.tw/"
+      },
+      {
+        "@type": "Article",
+        "@id": "https://www.longpon.com.tw/#interactive-rebuild",
+        "headline": "Interactive 3D Reconstruction Experience",
+        "description": "透過 3D 老屋重建動畫呈現危老重建與全案管理流程。",
+        "author": {
+          "@type": "Organization",
+          "name": "隆磐建設股份有限公司"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "隆磐建設股份有限公司"
+        },
+        "inLanguage": "zh-Hant"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.longpon.com.tw/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首頁",
+            "item": "https://www.longpon.com.tw/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "3D 重建體驗",
+            "item": "https://www.longpon.com.tw/#rebuild"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "提交基地評估",
+            "item": "https://www.longpon.com.tw/#contact"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+
+  <script>
+    window.addEventListener('load', function () {
+      const loader = document.getElementById('loader');
+      window.setTimeout(() => loader && loader.classList.add('is-hidden'), 650);
+    });
+
+    (function () {
+      const cursor = document.querySelector('.cursor');
+      const dot = document.querySelector('.cursor-dot');
+      const hoverables = document.querySelectorAll('[data-hover], a, button, input, textarea, .service-card, .before-after');
+
+      if (window.matchMedia('(pointer:fine)').matches && cursor && dot) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        window.addEventListener('mousemove', (event) => {
+          mouseX = event.clientX;
+          mouseY = event.clientY;
+          dot.style.left = mouseX + 'px';
+          dot.style.top = mouseY + 'px';
+        });
+
+        function renderCursor() {
+          cursorX += (mouseX - cursorX) * 0.16;
+          cursorY += (mouseY - cursorY) * 0.16;
+          cursor.style.left = cursorX + 'px';
+          cursor.style.top = cursorY + 'px';
+          requestAnimationFrame(renderCursor);
+        }
+
+        renderCursor();
+
+        hoverables.forEach((el) => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+        });
+      }
+    })();
+
+    (function () {
+      const revealEls = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealEls.forEach((el) => observer.observe(el));
+
+      const parallaxEls = document.querySelectorAll('[data-parallax]');
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        parallaxEls.forEach((el) => {
+          const speed = Number(el.dataset.parallax || 0.1);
+          el.style.transform = 'translate3d(0,' + (y * speed) + 'px,0)';
+        });
+      }, { passive: true });
+    })();
+
+    (function () {
+      const counters = document.querySelectorAll('[data-count]');
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = Number(el.dataset.count || 0);
+          const start = performance.now();
+          const duration = 1400;
+
+          function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(target * eased).toLocaleString();
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+
+          requestAnimationFrame(tick);
+          counterObserver.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+
+      counters.forEach((el) => counterObserver.observe(el));
+    })();
+
+    (function () {
+      const particleDots = document.getElementById('particleDots');
+      if (!particleDots) return;
+
+      for (let i = 0; i < 86; i += 1) {
+        const dot = document.createElement('i');
+        dot.style.left = Math.random() * 100 + '%';
+        dot.style.top = Math.random() * 100 + '%';
+        dot.style.animationDelay = (Math.random() * -7).toFixed(2) + 's';
+        dot.style.animationDuration = (5 + Math.random() * 5).toFixed(2) + 's';
+        dot.style.opacity = (0.25 + Math.random() * 0.65).toFixed(2);
+        particleDots.appendChild(dot);
+      }
+    })();
+
+    (function () {
+      const box = document.getElementById('beforeAfter');
+      const afterWrap = document.getElementById('afterWrap');
+      const line = document.getElementById('baLine');
+      const handle = document.getElementById('baHandle');
+      if (!box || !afterWrap || !line || !handle) return;
+
+      let active = false;
+
+      function setPosition(clientX, clientY, makeRipple) {
+        const rect = box.getBoundingClientRect();
+        const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+        const percent = (x / rect.width) * 100;
+        afterWrap.style.width = percent + '%';
+        line.style.left = percent + '%';
+        handle.style.left = percent + '%';
+
+        if (makeRipple) {
+          const ripple = document.createElement('span');
+          ripple.className = 'ripple';
+          ripple.style.left = x + 'px';
+          ripple.style.top = Math.max(0, Math.min(clientY - rect.top, rect.height)) + 'px';
+          box.appendChild(ripple);
+          window.setTimeout(() => ripple.remove(), 720);
+        }
+      }
+
+      box.addEventListener('pointerdown', (event) => {
+        active = true;
+        box.setPointerCapture(event.pointerId);
+        setPosition(event.clientX, event.clientY, true);
+      });
+
+      box.addEventListener('pointermove', (event) => {
+        if (!active) return;
+        setPosition(event.clientX, event.clientY, Math.random() > 0.72);
+      });
+
+      box.addEventListener('pointerup', () => {
+        active = false;
+      });
+
+      box.addEventListener('pointerleave', () => {
+        active = false;
+      });
+    })();
+
+    (function () {
+      let sceneMounted = false;
+
+      const sceneEl = document.getElementById('sceneCanvas');
+      const sceneStatus = document.getElementById('sceneStatus');
+      const rebuildBtn = document.getElementById('rebuildBtn');
+
+      if (!sceneEl) return;
+
+      function mountScene() {
+        if (sceneMounted || !window.THREE) return;
+        sceneMounted = true;
+
+        const THREE = window.THREE;
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x050507, 0.045);
+
+        const camera = new THREE.PerspectiveCamera(45, sceneEl.clientWidth / sceneEl.clientHeight, 0.1, 100);
+        camera.position.set(6.2, 4.8, 8.2);
+        camera.lookAt(0, 1.1, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+        renderer.setSize(sceneEl.clientWidth, sceneEl.clientHeight);
+        renderer.shadowMap.enabled = true;
+        sceneEl.appendChild(renderer.domElement);
+
+        const ambient = new THREE.AmbientLight(0xffffff, 0.45);
+        scene.add(ambient);
+
+        const cyanLight = new THREE.PointLight(0x00F0FF, 2.2, 18);
+        cyanLight.position.set(-4, 5, 5);
+        scene.add(cyanLight);
+
+        const magentaLight = new THREE.PointLight(0xFF2D87, 1.8, 18);
+        magentaLight.position.set(5, 3, -3);
+        scene.add(magentaLight);
+
+        const floorGeo = new THREE.PlaneGeometry(18, 18, 34, 34);
+        const floorMat = new THREE.MeshStandardMaterial({
+          color: 0x09090d,
+          roughness: 0.7,
+          metalness: 0.15,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.34
+        });
+        const floor = new THREE.Mesh(floorGeo, floorMat);
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.y = -0.02;
+        scene.add(floor);
+
+        const oldHouse = new THREE.Group();
+        const oldMat = new THREE.MeshStandardMaterial({
+          color: 0x6b6258,
+          roughness: 0.72,
+          metalness: 0.05
+        });
+        const roofMat = new THREE.MeshStandardMaterial({
+          color: 0x2b2020,
+          roughness: 0.78
+        });
+
+        const base = new THREE.Mesh(new THREE.BoxGeometry(2.7, 1.7, 2.1), oldMat);
+        base.position.y = 0.86;
+        oldHouse.add(base);
+
+        const roof = new THREE.Mesh(new THREE.ConeGeometry(2.15, 1.05, 4), roofMat);
+        roof.rotation.y = Math.PI / 4;
+        roof.position.y = 2.22;
+        oldHouse.add(roof);
+
+        const door = new THREE.Mesh(
+          new THREE.BoxGeometry(.5, .82, .06),
+          new THREE.MeshStandardMaterial({ color: 0x111111, roughness: .6 })
+        );
+        door.position.set(0, .42, 1.08);
+        oldHouse.add(door);
+
+        const windowMat = new THREE.MeshStandardMaterial({
+          color: 0x00F0FF,
+          emissive: 0x00F0FF,
+          emissiveIntensity: .28,
+          roughness: .25
+        });
+
+        [-.82, .82].forEach((x) => {
+          const win = new THREE.Mesh(new THREE.BoxGeometry(.48, .36, .06), windowMat);
+          win.position.set(x, 1.15, 1.09);
+          oldHouse.add(win);
+        });
+
+        oldHouse.position.set(0, 0, 0);
+        scene.add(oldHouse);
+
+        const tower = new THREE.Group();
+        const towerMat = new THREE.MeshStandardMaterial({
+          color: 0x101928,
+          roughness: 0.28,
+          metalness: 0.35,
+          transparent: true,
+          opacity: 0.92
+        });
+
+        const glassMat = new THREE.MeshStandardMaterial({
+          color: 0x00F0FF,
+          emissive: 0x00F0FF,
+          emissiveIntensity: .22,
+          roughness: .18,
+          metalness: .22,
+          transparent: true,
+          opacity: .78
+        });
+
+        for (let i = 0; i < 9; i += 1) {
+          const floorBox = new THREE.Mesh(new THREE.BoxGeometry(2.25, .42, 1.85), towerMat);
+          floorBox.position.y = i * .5 + .28;
+          floorBox.scale.set(.78, .02, .78);
+          tower.add(floorBox);
+
+          const glass = new THREE.Mesh(new THREE.BoxGeometry(1.9, .16, .04), glassMat);
+          glass.position.set(0, i * .5 + .34, .95);
+          glass.scale.set(.7, .01, .7);
+          tower.add(glass);
+        }
+
+        const top = new THREE.Mesh(new THREE.BoxGeometry(2.55, .28, 2.1), glassMat);
+        top.position.y = 4.82;
+        top.scale.set(.68, .01, .68);
+        tower.add(top);
+
+        tower.position.set(0, -4.9, 0);
+        tower.visible = false;
+        scene.add(tower);
+
+        const particles = new THREE.Group();
+        const particleMat = new THREE.MeshBasicMaterial({
+          color: 0x00F0FF,
+          transparent: true,
+          opacity: .82
+        });
+
+        for (let i = 0; i < 90; i += 1) {
+          const p = new THREE.Mesh(new THREE.SphereGeometry(.025 + Math.random() * .025, 8, 8), particleMat);
+          p.position.set(
+            (Math.random() - .5) * 5.2,
+            Math.random() * 3.8 + .3,
+            (Math.random() - .5) * 4.8
+          );
+          p.userData = {
+            baseY: p.position.y,
+            speed: .4 + Math.random() * .7,
+            phase: Math.random() * Math.PI * 2
+          };
+          particles.add(p);
+        }
+
+        scene.add(particles);
+
+        const ring = new THREE.Mesh(
+          new THREE.TorusGeometry(2.35, .015, 12, 160),
+          new THREE.MeshBasicMaterial({ color: 0xFF2D87, transparent: true, opacity: .72 })
+        );
+        ring.rotation.x = Math.PI / 2;
+        ring.position.y = .04;
+        scene.add(ring);
+
+        let rebuilt = false;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        sceneEl.addEventListener('pointermove', (event) => {
+          const rect = sceneEl.getBoundingClientRect();
+          mouseX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+          mouseY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+        });
+
+        function fallbackAnimate(target, props, duration, onComplete) {
+          const startValues = {};
+          Object.keys(props).forEach((key) => startValues[key] = target[key]);
+          const start = performance.now();
+          function step(now) {
+            const p = Math.min((now - start) / (duration * 1000), 1);
+            const e = 1 - Math.pow(1 - p, 3);
+            Object.keys(props).forEach((key) => {
+              target[key] = startValues[key] + (props[key] - startValues[key]) * e;
+            });
+            if (p < 1) requestAnimationFrame(step);
+            else if (onComplete) onComplete();
+          }
+          requestAnimationFrame(step);
+        }
+
+        function animateObj(target, props, duration, delay, onComplete) {
+          if (window.gsap) {
+            window.gsap.to(target, {
+              ...props,
+              duration,
+              delay: delay || 0,
+              ease: 'power3.inOut',
+              onComplete
+            });
+          } else {
+            window.setTimeout(() => fallbackAnimate(target, props, duration, onComplete), (delay || 0) * 1000);
+          }
+        }
+
+        function triggerRebuild() {
+          if (rebuilt) {
+            rebuilt = false;
+            tower.visible = true;
+            if (sceneStatus) {
+              sceneStatus.innerHTML = '<strong>Resetting Old House</strong>回到重建前狀態，可再次啟動動畫。';
+            }
+            oldHouse.visible = true;
+            oldHouse.children.forEach((child) => {
+              animateObj(child.position, { y: child.userData.originalY || child.position.y }, .7, 0);
+              animateObj(child.rotation, { x: 0, z: 0 }, .7, 0);
+              animateObj(child.scale, { x: 1, y: 1, z: 1 }, .7, 0);
+            });
+            animateObj(tower.position, { y: -4.9 }, 1, 0, () => { tower.visible = false; });
+            animateObj(ring.scale, { x: 1, y: 1, z: 1 }, .8, 0);
+            if (rebuildBtn) rebuildBtn.textContent = '啟動重建';
+            return;
+          }
+
+          rebuilt = true;
+          if (rebuildBtn) rebuildBtn.textContent = '重設場景';
+          if (sceneStatus) {
+            sceneStatus.innerHTML = '<strong>Reconstruction Activated</strong>老屋拆除中，新大樓正在升起。';
+          }
+
+          oldHouse.children.forEach((child, idx) => {
+            child.userData.originalY = child.userData.originalY ?? child.position.y;
+            animateObj(child.position, {
+              y: child.position.y - 1.4 - Math.random() * .7,
+              x: child.position.x + (Math.random() - .5) * 3.2,
+              z: child.position.z + (Math.random() - .5) * 2.2
+            }, 1.05, idx * .05);
+            animateObj(child.rotation, {
+              x: child.rotation.x + (Math.random() - .5) * 2.4,
+              z: child.rotation.z + (Math.random() - .5) * 2.4
+            }, 1.05, idx * .05);
+            animateObj(child.scale, { x: .12, y: .12, z: .12 }, 1, idx * .05);
+          });
+
+          tower.visible = true;
+          animateObj(tower.position, { y: 0 }, 1.6, .55, () => {
+            if (sceneStatus) {
+              sceneStatus.innerHTML = '<strong>New Building Complete</strong>重建後權益 100% 歸地主，全案管理完成下一代的新家。';
+            }
+          });
+
+          tower.children.forEach((child, idx) => {
+            child.scale.set(.72, .01, .72);
+            animateObj(child.scale, { x: 1, y: 1, z: 1 }, .7, .75 + idx * .035);
+          });
+
+          animateObj(ring.scale, { x: 1.85, y: 1.85, z: 1.85 }, 1.1, .15);
+        }
+
+        if (rebuildBtn) rebuildBtn.addEventListener('click', triggerRebuild);
+
+        function resize() {
+          const width = sceneEl.clientWidth || 600;
+          const height = sceneEl.clientHeight || 600;
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+        }
+
+        window.addEventListener('resize', resize);
+
+        function animate(time) {
+          requestAnimationFrame(animate);
+          const t = time * 0.001;
+
+          oldHouse.rotation.y += 0.003;
+          tower.rotation.y += 0.0025;
+          ring.rotation.z += 0.006;
+
+          particles.children.forEach((p) => {
+            p.position.y = p.userData.baseY + Math.sin(t * p.userData.speed + p.userData.phase) * .18;
+            p.rotation.y += .01;
+          });
+
+          camera.position.x += ((6.2 + mouseX * .45) - camera.position.x) * .035;
+          camera.position.y += ((4.8 - mouseY * .25) - camera.position.y) * .035;
+          camera.lookAt(0, 1.2, 0);
+
+          renderer.render(scene, camera);
+        }
+
+        animate(0);
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const waitForThree = setInterval(() => {
+              if (window.THREE) {
+                clearInterval(waitForThree);
+                mountScene();
+              }
+            }, 60);
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.18 });
+
+      io.observe(sceneEl);
+    })();
+  </script>
+</body>
+</html>

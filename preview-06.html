@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>隆磐建設｜30 秒危老重建試算與自地自建評估</title>
+  <meta name="description" content="隆磐建設提供台中危老重建、自地自建與全案管理服務。透過 30 秒容積獎勵試算、房租補貼試算與案例資料，快速了解老宅重建可能性。" />
+  <meta name="keywords" content="隆磐建設, 台中危老重建, 自地自建, 都市更新, 容積獎勵試算, 危老適用判定, 房租補貼" />
+  <link rel="canonical" href="https://www.longpon.com.tw/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="隆磐建設｜30 秒，算出您家老宅可以變多大" />
+  <meta property="og:description" content="輸入屋齡、基地面積與區位，立即估算重建後可建坪數與初步估值。" />
+  <meta property="og:image" content="https://placehold.co/1200x630/ffffff/635bff?text=Longpon+Calculator" />
+  <meta property="og:url" content="https://www.longpon.com.tw/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="隆磐建設｜30 秒危老重建試算" />
+  <meta name="twitter:description" content="工具優先的危老重建 Landing Page，快速估算可建坪數、估值與房租補貼。" />
+  <meta name="twitter:image" content="https://placehold.co/1200x630/ffffff/635bff?text=Longpon+Calculator" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --purple: #635BFF;
+      --purple-dark: #4f46e5;
+      --ink: #0F172A;
+      --slate: #64748B;
+      --muted: #F8FAFC;
+      --line: #E2E8F0;
+      --line-strong: #CBD5E1;
+      --success: #16A34A;
+      --danger: #E11D48;
+      --warning: #F59E0B;
+      --radius: 8px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, .07);
+      --shadow-sm: 0 6px 18px rgba(15, 23, 42, .055);
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, select { font: inherit; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px;
+      color: var(--purple); background: #fff; font-size: 13px; font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--purple); box-shadow: 0 0 0 5px rgba(99,91,255,.12); }
+    .section { padding: 84px 0; }
+    .section-muted { background: var(--muted); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .section-head { max-width: 760px; margin-bottom: 34px; }
+    .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -.06em;
+      margin: 18px 0 22px;
+    }
+    h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+      margin-bottom: 14px;
+    }
+    h3 { font-size: 20px; line-height: 1.25; letter-spacing: -.02em; margin-bottom: 8px; }
+    .lead { color: var(--slate); font-size: clamp(17px, 2vw, 20px); max-width: 680px; }
+    .small { color: var(--slate); font-size: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 46px; padding: 0 18px; border-radius: var(--radius); border: 1px solid transparent;
+      font-weight: 800; cursor: pointer; transition: .18s ease; white-space: nowrap;
+    }
+    .btn-primary { background: var(--purple); color: white; box-shadow: 0 12px 24px rgba(99,91,255,.24); }
+    .btn-primary:hover { background: var(--purple-dark); transform: translateY(-1px); }
+    .btn-ghost { border-color: var(--line-strong); color: var(--ink); background: white; }
+    .btn-ghost:hover { border-color: var(--purple); color: var(--purple); transform: translateY(-1px); }
+    .btn-soft { background: rgba(99,91,255,.08); color: var(--purple); }
+    .btn-soft:hover { background: rgba(99,91,255,.14); }
+
+    .site-header {
+      position: fixed; inset: 0 0 auto 0; z-index: 30;
+      background: rgba(255,255,255,.78); backdrop-filter: blur(16px); border-bottom: 1px solid transparent;
+      transition: .2s ease;
+    }
+    .site-header.is-scrolled { border-bottom-color: var(--line); background: rgba(255,255,255,.92); }
+    .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -.02em; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 8px; background: var(--ink); color: white;
+      display: grid; place-items: center; font-weight: 900; position: relative; overflow: hidden;
+    }
+    .brand-mark::after { content: ''; position: absolute; width: 18px; height: 18px; background: var(--purple); right: -4px; bottom: -4px; border-radius: 5px; }
+    .nav-links { display: none; align-items: center; gap: 22px; color: var(--slate); font-size: 14px; font-weight: 700; }
+    .nav-links a:hover { color: var(--purple); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-actions .btn-ghost { display: none; }
+
+    .hero { padding: 132px 0 72px; background: radial-gradient(circle at 85% 15%, rgba(99,91,255,.12), transparent 30%), var(--white); }
+    .hero-grid { display: grid; gap: 30px; align-items: center; }
+    .hero-copy { min-width: 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0; }
+    .proof-row { display: flex; flex-wrap: wrap; gap: 12px; color: var(--slate); font-size: 14px; }
+    .proof-row span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border: 1px solid var(--line); border-radius: 999px; background: #fff; }
+    .check { color: var(--success); font-weight: 900; }
+
+    .calculator-card {
+      background: white; border: 1px solid var(--line); border-radius: 16px; padding: 18px;
+      box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .calculator-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--purple);
+    }
+    .calc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .calc-top p { margin: 0; }
+    .badge { display: inline-flex; align-items: center; justify-content: center; min-height: 26px; padding: 0 8px; border-radius: 999px; background: rgba(99,91,255,.08); color: var(--purple); font-size: 12px; font-weight: 800; }
+    .field { margin-bottom: 16px; }
+    .field-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    label { display: block; font-size: 13px; color: var(--slate); font-weight: 800; }
+    input[type="number"], input[type="text"], input[type="email"], input[type="tel"], select {
+      width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius); background: white; color: var(--ink);
+      padding: 11px 12px; outline: none; transition: .15s ease;
+    }
+    input:focus, select:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(99,91,255,.12); }
+    input[type="range"] { width: 100%; accent-color: var(--purple); }
+    .metric-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+    .metric {
+      border: 1px solid var(--line); background: var(--muted); border-radius: 12px; padding: 14px;
+    }
+    .metric span { display: block; color: var(--slate); font-size: 12px; font-weight: 800; margin-bottom: 5px; }
+    .metric strong { font-size: 28px; line-height: 1; letter-spacing: -.04em; }
+    .metric em { font-style: normal; color: var(--purple); font-weight: 900; }
+    .progress-shell { height: 10px; border-radius: 999px; background: #EDEBFF; overflow: hidden; margin-top: 12px; }
+    .progress-bar { height: 100%; width: 48%; background: var(--purple); border-radius: inherit; transition: width .25s ease; }
+
+    .tool-grid { display: grid; gap: 16px; }
+    .tool-card {
+      border: 1px solid var(--line); background: white; border-radius: 14px; padding: 18px; box-shadow: var(--shadow-sm);
+      transition: .18s ease; position: relative; overflow: hidden;
+    }
+    .tool-card:hover { transform: translateY(-3px); border-color: rgba(99,91,255,.5); }
+    .tool-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(99,91,255,.08); color: var(--purple); display: grid; place-items: center; margin-bottom: 14px; }
+    .tool-card p { color: var(--slate); margin-bottom: 14px; }
+    .mini-link { color: var(--purple); font-weight: 900; font-size: 14px; }
+
+    .stats-grid { display: grid; gap: 16px; }
+    .stat-card { border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: white; box-shadow: var(--shadow-sm); }
+    .stat-label { color: var(--slate); font-size: 13px; font-weight: 800; margin-bottom: 12px; }
+    .stat-value { font-size: clamp(42px, 6vw, 68px); line-height: .95; letter-spacing: -.06em; font-weight: 900; }
+    .trend { display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; font-size: 13px; font-weight: 900; color: var(--success); }
+    .trend.down { color: var(--danger); }
+    .charts-grid { display: grid; gap: 18px; margin-top: 18px; }
+    .chart-card { border: 1px solid var(--line); border-radius: 14px; padding: 18px; background: white; box-shadow: var(--shadow-sm); min-height: 300px; }
+    .chart-wrap { height: 240px; }
+
+    .table-toolbar { display: grid; gap: 12px; margin-bottom: 14px; }
+    .table-wrap { border: 1px solid var(--line); border-radius: 14px; overflow: auto; background: white; box-shadow: var(--shadow-sm); }
+    table { width: 100%; border-collapse: collapse; min-width: 860px; }
+    th, td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; font-size: 14px; }
+    th { background: var(--muted); color: var(--slate); font-weight: 900; cursor: pointer; user-select: none; white-space: nowrap; }
+    td strong { font-weight: 900; }
+    tbody tr:hover { background: #fbfbff; }
+    .tag { display: inline-flex; border-radius: 999px; padding: 3px 8px; background: rgba(99,91,255,.08); color: var(--purple); font-size: 12px; font-weight: 900; }
+
+    .knowledge-layout { display: grid; gap: 18px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 24px; }
+    .filter-tag { border: 1px solid var(--line); background: white; border-radius: 999px; padding: 7px 12px; color: var(--slate); cursor: pointer; font-weight: 800; }
+    .filter-tag.active, .filter-tag:hover { border-color: var(--purple); color: var(--purple); background: rgba(99,91,255,.06); }
+    .article-grid { display: grid; gap: 14px; }
+    .article-card { border: 1px solid var(--line); background: white; border-radius: 14px; padding: 18px; box-shadow: var(--shadow-sm); }
+    .article-card p { color: var(--slate); margin-bottom: 12px; }
+
+    .cta-panel {
+      border: 1px solid rgba(99,91,255,.25); border-radius: 18px; padding: 26px; background: linear-gradient(180deg, rgba(99,91,255,.07), rgba(99,91,255,.02));
+      display: grid; gap: 24px; align-items: center;
+    }
+    .cta-form { display: grid; gap: 12px; }
+    .fineprint { color: var(--slate); font-size: 12px; margin: 8px 0 0; }
+
+    .footer { padding: 52px 0 88px; background: var(--ink); color: white; }
+    .footer-grid { display: grid; gap: 28px; }
+    .footer a, .footer p { color: #CBD5E1; }
+    .footer h3 { color: white; font-size: 15px; }
+    .footer-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 14px; }
+    .floating-cta { position: fixed; right: 16px; bottom: 88px; z-index: 25; display: grid; gap: 10px; }
+    .float-btn { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; border: 1px solid var(--line); background: white; box-shadow: var(--shadow); color: var(--purple); }
+    .mobile-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 28; background: white; border-top: 1px solid var(--line); padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    .quiz-box, .rent-box, .finance-box { border: 1px solid var(--line); border-radius: 14px; padding: 18px; background: white; box-shadow: var(--shadow-sm); margin-top: 18px; }
+    .question { display: grid; gap: 8px; margin-bottom: 14px; }
+    .option { display: flex; gap: 9px; align-items: flex-start; color: var(--slate); }
+    .result-box { border-radius: 12px; padding: 14px; background: rgba(99,91,255,.08); color: var(--ink); margin-top: 12px; font-weight: 800; }
+
+    @media (min-width: 640px) {
+      .metric-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .tool-grid, .article-grid { grid-template-columns: repeat(2, 1fr); }
+      .table-toolbar { grid-template-columns: 1fr 180px 160px auto; align-items: end; }
+      .cta-form { grid-template-columns: 1fr 1fr; }
+      .cta-form .full { grid-column: 1 / -1; }
+    }
+    @media (min-width: 768px) {
+      .hero-grid { grid-template-columns: minmax(0, 1.25fr) minmax(330px, .75fr); }
+      .nav-actions .btn-ghost { display: inline-flex; }
+      .charts-grid, .cta-panel { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1.3fr repeat(4, 1fr); }
+      .mobile-bar { display: none; }
+      .floating-cta { bottom: 22px; }
+    }
+    @media (min-width: 1024px) {
+      .nav-links { display: flex; }
+      .tool-grid { grid-template-columns: repeat(4, 1fr); }
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+      .knowledge-layout { grid-template-columns: .8fr 1.2fr; }
+      .article-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1280px) {
+      .container { padding-left: 0; padding-right: 0; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://www.longpon.com.tw/#business",
+        "name": "隆磐建設股份有限公司",
+        "alternateName": "Longpon",
+        "url": "https://www.longpon.com.tw/",
+        "image": "https://placehold.co/1200x630/ffffff/635bff?text=Longpon",
+        "description": "台中危老重建、自地自建、都市更新與全案管理服務。",
+        "areaServed": "台中市",
+        "telephone": "04-23756168",
+        "sameAs": ["https://www.facebook.com/"]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://www.longpon.com.tw/#article",
+        "headline": "30 秒，算出您家老宅可以變多大",
+        "author": { "@id": "https://www.longpon.com.tw/#business" },
+        "publisher": { "@id": "https://www.longpon.com.tw/#business" },
+        "about": ["危老重建", "容積獎勵", "自地自建", "融資試算"]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.longpon.com.tw/#faq",
+        "mainEntity": [
+          {"@type":"Question","name":"危老重建一定需要很多自備款嗎？","acceptedAnswer":{"@type":"Answer","text":"不一定。隆磐建設可依個案協助評估 100% 融資、信託與房租補貼等配套。"}},
+          {"@type":"Question","name":"容積獎勵試算結果可以直接當作正式結果嗎？","acceptedAnswer":{"@type":"Answer","text":"線上試算屬初步估算，正式結果仍需依基地條件、法規、建築師與主管機關審查。"}}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.longpon.com.tw/#breadcrumb",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"首頁","item":"https://www.longpon.com.tw/"},
+          {"@type":"ListItem","position":2,"name":"危老重建試算","item":"https://www.longpon.com.tw/#calculator"}
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav" aria-label="主導覽">
+      <a class="brand" href="#top" aria-label="隆磐建設首頁">
+        <span class="brand-mark">L</span>
+        <span>隆磐建設<br><span class="small">Longpon Calculator</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#tools">工具</a>
+        <a href="#data">數據</a>
+        <a href="#cases">案例</a>
+        <a href="#knowledge">知識庫</a>
+        <a href="#contact">評估</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="tel:0423756168">04-23756168</a>
+        <a class="btn btn-primary" href="#contact">48 小時評估</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="calculator" aria-labelledby="heroTitle">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="dot"></span> 危老重建 Calculator-First Landing Page</span>
+          <h1 id="heroTitle">30 秒，算出您家老宅可以變多大</h1>
+          <p class="lead">輸入屋齡、基地面積與區位，立即估算重建後可建坪數、容積獎勵與初步估值。讓第一次諮詢不再從「不知道」開始。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#calculator">立即試算</a>
+            <a class="btn btn-ghost" href="#cases">查看案例資料表</a>
+          </div>
+          <div class="proof-row" aria-label="隆磐建設服務特色">
+            <span><b class="check">✓</b> 0 自備款評估</span>
+            <span><b class="check">✓</b> 100% 融資配套</span>
+            <span><b class="check">✓</b> 第三方查核</span>
+            <span><b class="check">✓</b> 地主 100% 權益</span>
+          </div>
+        </div>
+
+        <aside class="calculator-card" aria-label="容積獎勵迷你試算器">
+          <div class="calc-top">
+            <div>
+              <h2 style="font-size:24px;margin-bottom:4px;">容積獎勵迷你試算</h2>
+              <p class="small">屋齡 + 面積 + 區位，即時更新概算。</p>
+            </div>
+            <span class="badge">Live</span>
+          </div>
+
+          <div class="field">
+            <div class="field-row"><label for="ageRange">屋齡</label><strong><span id="ageValue">45</span> 年</strong></div>
+            <input id="ageRange" type="range" min="20" max="80" value="45" aria-label="屋齡" />
+          </div>
+          <div class="field">
+            <label for="landArea">基地面積，坪</label>
+            <input id="landArea" type="number" min="10" max="500" value="38" inputmode="decimal" />
+          </div>
+          <div class="field">
+            <label for="zoneSelect">區位</label>
+            <select id="zoneSelect">
+              <option value="core">台中核心生活圈</option>
+              <option value="urban">一般都市計畫區</option>
+              <option value="suburb">外圍住宅區</option>
+            </select>
+          </div>
+
+          <div class="metric-grid" aria-live="polite">
+            <div class="metric"><span>預估容積獎勵</span><strong><em id="bonusPct">32</em>%</strong></div>
+            <div class="metric"><span>新建可建坪數</span><strong><em id="newPing">150</em> 坪</strong></div>
+            <div class="metric"><span>重建後估值</span><strong><em id="valueEstimate">8,980</em> 萬</strong></div>
+          </div>
+          <div class="progress-shell" aria-label="容積獎勵進度條"><div class="progress-bar" id="bonusBar"></div></div>
+          <p class="fineprint">此為 Landing Page 示意公式，正式評估需依基地條件與法規審查。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="tools" aria-labelledby="toolsTitle">
+      <div class="container">
+        <div class="section-head center">
+          <span class="eyebrow"><span class="dot"></span> Tool Stack</span>
+          <h2 id="toolsTitle">把屋主最在意的問題，全部變成可計算工具</h2>
+          <p class="lead">與其堆滿文字介紹，不如讓屋主自己輸入條件，直接看到初步方向。</p>
+        </div>
+        <div class="tool-grid">
+          <article class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>危老適用 30 秒判定</h3>
+            <p>透過 5 題快速確認屋齡、結構、基地與所有權狀況。</p>
+            <a class="mini-link" href="#eligibility">開始判定 →</a>
+          </article>
+          <article class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V5m0 14h16M8 17V9m5 8V6m5 11v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>容積獎勵試算</h3>
+            <p>根據屋齡、基地面積與都市計畫區，估算可建坪數。</p>
+            <a class="mini-link" href="#calculator">回到試算 →</a>
+          </article>
+          <article class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>權狀與財務試算</h3>
+            <p>概算重建後坪數、總價、貸款與自備款壓力。</p>
+            <a class="mini-link" href="#finance">查看財務 →</a>
+          </article>
+          <article class="tool-card">
+            <div class="tool-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2v20m5-16H9.5a3.5 3.5 0 000 7H14a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>房租補貼總額試算</h3>
+            <p>輸入重建期間與戶型，估算搬遷期間租金支援。</p>
+            <a class="mini-link" href="#rent">試算補貼 →</a>
+          </article>
+        </div>
+
+        <div class="quiz-box" id="eligibility">
+          <h3>危老適用 30 秒判定</h3>
+          <p class="small">勾選符合項目，系統會給出初步適用分數。</p>
+          <div class="question">
+            <label class="option"><input type="checkbox" class="eligibility" value="20"> 建物屋齡 30 年以上</label>
+            <label class="option"><input type="checkbox" class="eligibility" value="20"> 有初評、詳評或結構安全疑慮</label>
+            <label class="option"><input type="checkbox" class="eligibility" value="20"> 基地位於都市計畫區內</label>
+            <label class="option"><input type="checkbox" class="eligibility" value="20"> 多數所有權人已有重建共識</label>
+            <label class="option"><input type="checkbox" class="eligibility" value="20"> 想評估融資、信託、房租補貼配套</label>
+          </div>
+          <div class="result-box" id="eligibilityResult">目前分數：0 / 100。請勾選條件。</div>
+        </div>
+
+        <div class="finance-box" id="finance">
+          <h3>重建後權狀預估 + 財務試算</h3>
+          <div class="metric-grid">
+            <div class="field"><label for="unitPrice">預估單價，萬元 / 坪</label><input id="unitPrice" type="number" value="62"></div>
+            <div class="field"><label for="loanRatio">融資比例，%</label><input id="loanRatio" type="number" value="80"></div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric"><span>估算總價</span><strong><em id="financeTotal">9,300</em> 萬</strong></div>
+            <div class="metric"><span>貸款額度</span><strong><em id="financeLoan">7,440</em> 萬</strong></div>
+          </div>
+        </div>
+
+        <div class="rent-box" id="rent">
+          <h3>房租補貼總額試算</h3>
+          <div class="metric-grid">
+            <div class="field"><label for="months">重建期間，月</label><input id="months" type="number" value="30"></div>
+            <div class="field"><label for="rentPerMonth">每月租金補貼，元</label><input id="rentPerMonth" type="number" value="28000"></div>
+          </div>
+          <div class="result-box">預估房租補貼總額：<strong id="rentTotal">840,000</strong> 元</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="data" aria-labelledby="dataTitle">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot"></span> Data Proof</span>
+          <h2 id="dataTitle">用數字先建立信任，再進入諮詢</h2>
+          <p class="lead">首頁不只展示品牌，而是把「有多少經驗、可能多大、多久完成」變成可視化依據。</p>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-label">台中危老核准案數</div><div class="stat-value"><span class="count" data-target="575">0</span></div><div class="trend">↑ 全國第 2</div></article>
+          <article class="stat-card"><div class="stat-label">國家建築金質獎</div><div class="stat-value"><span class="count" data-target="2">0</span></div><div class="trend">↑ 第 25、26 屆</div></article>
+          <article class="stat-card"><div class="stat-label">都更危老整合</div><div class="stat-value"><span class="count" data-target="37">0</span></div><div class="trend">↑ 年資歷</div></article>
+          <article class="stat-card"><div class="stat-label">甲級營造</div><div class="stat-value"><span class="count" data-target="42">0</span></div><div class="trend">↑ 年經驗</div></article>
+        </div>
+        <div class="charts-grid">
+          <article class="chart-card">
+            <h3>危老案量與諮詢成長示意</h3>
+            <div class="chart-wrap"><canvas id="lineChart" aria-label="危老案量折線圖"></canvas></div>
+          </article>
+          <article class="chart-card">
+            <h3>重建效益組成示意</h3>
+            <div class="chart-wrap"><canvas id="barChart" aria-label="重建效益長條圖"></canvas></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="cases" aria-labelledby="casesTitle">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot"></span> Case Database</span>
+          <h2 id="casesTitle">案例資料表：讓屋主找得到「像我家」的情境</h2>
+          <p class="lead">以表格取代單純相簿，支援區域篩選、排序與 CSV 匯出，更適合搜尋者比較。</p>
+        </div>
+        <div class="table-toolbar">
+          <div><label for="caseSearch">搜尋區域 / 案名</label><input id="caseSearch" type="text" placeholder="例如：北屯、七期、透天"></div>
+          <div><label for="caseRegion">區域</label><select id="caseRegion"><option value="all">全部</option><option>西區七期</option><option>北屯</option><option>南區</option><option>龍井</option><option>沙鹿</option></select></div>
+          <div><label for="caseType">樓型</label><select id="caseType"><option value="all">全部</option><option>透天</option><option>公寓</option><option>大樓</option></select></div>
+          <button class="btn btn-primary" id="exportCsv">匯出 CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table id="casesTable">
+            <thead>
+              <tr>
+                <th data-key="name">案名</th>
+                <th data-key="region">區域</th>
+                <th data-key="type">樓型</th>
+                <th data-key="age">屋齡</th>
+                <th data-key="before">原坪數</th>
+                <th data-key="after">重建後坪數</th>
+                <th data-key="bonus">容積獎勵 %</th>
+                <th data-key="duration">重建時長</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="knowledge" aria-labelledby="knowledgeTitle">
+      <div class="container knowledge-layout">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> Knowledge Base</span>
+          <h2 id="knowledgeTitle">把 250+ 篇文章整理成可以搜尋的決策知識庫</h2>
+          <p class="lead">搜尋框置頂，標籤化導覽，讓屋主子女能快速找到法律、稅務、融資與容積資訊。</p>
+          <div class="field"><label for="articleSearch">搜尋知識庫</label><input id="articleSearch" type="text" placeholder="輸入：房租補貼、容積、信託、稅務"></div>
+          <div class="tag-list" role="list" aria-label="文章分類">
+            <button class="filter-tag active" data-tag="all">全部</button>
+            <button class="filter-tag" data-tag="稅務">#稅務</button>
+            <button class="filter-tag" data-tag="法律">#法律</button>
+            <button class="filter-tag" data-tag="結構">#結構</button>
+            <button class="filter-tag" data-tag="融資">#融資</button>
+            <button class="filter-tag" data-tag="容積">#容積</button>
+          </div>
+        </div>
+        <div class="article-grid" id="articleGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="contact" aria-labelledby="contactTitle">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <span class="eyebrow"><span class="dot"></span> 48h Assessment</span>
+            <h2 id="contactTitle">把您的地號丟給我們，48 小時內回覆完整評估</h2>
+            <p class="lead">我們會協助初步確認基地條件、危老適用性、容積獎勵方向、融資與房租補貼配套。</p>
+          </div>
+          <form class="cta-form" action="mailto:service@longpon.com.tw" method="post" enctype="text/plain">
+            <div><label for="name">姓名</label><input id="name" name="name" type="text" placeholder="王先生 / 陳小姐" required></div>
+            <div><label for="phone">手機</label><input id="phone" name="phone" type="tel" placeholder="0912-345-678" required></div>
+            <div class="full"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+            <div class="full"><label for="landNo">地號或地址</label><input id="landNo" name="landNo" type="text" placeholder="台中市○○區○○段○○地號"></div>
+            <button class="btn btn-primary full" type="submit">送出評估需求</button>
+            <p class="fineprint full">目前 MVP 使用 mailto: 暫代後端；正式版可串 GA Event、LINE OA、CRM 或表單 API。</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="floating-cta" aria-label="快速聯絡">
+    <a class="float-btn" href="https://line.me/R/ti/p/@longpon" aria-label="LINE 聯絡">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 5.8C4 3.7 6 2 8.5 2h7C18 2 20 3.7 20 5.8v5.1c0 2.1-2 3.8-4.5 3.8H13l-4 4v-4.1h-.5C6 14.7 4 13 4 10.9V5.8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="float-btn" href="tel:0423756168" aria-label="電話聯絡">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 2 .7 2.9a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.9.6 2.9.7a2 2 0 011.7 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </aside>
+
+  <div class="mobile-bar" aria-label="手機固定 CTA">
+    <a class="btn btn-ghost" href="tel:0423756168">電話諮詢</a>
+    <a class="btn btn-primary" href="#contact">48 小時評估</a>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px;"><span class="brand-mark">L</span><span>隆磐建設<br><span class="small">Longpon Construction</span></span></div>
+        <p>台中危老重建、自地自建、都市更新與全案管理服務。以數據工具降低理解門檻，以第三方制度提高信任。</p>
+      </div>
+      <div><h3>工具</h3><ul class="footer-list"><li><a href="#calculator">容積試算</a></li><li><a href="#eligibility">危老判定</a></li><li><a href="#rent">房租補貼</a></li></ul></div>
+      <div><h3>服務</h3><ul class="footer-list"><li>危老重建</li><li>自地自建</li><li>全案管理</li><li>都更整合</li></ul></div>
+      <div><h3>資料</h3><ul class="footer-list"><li><a href="#cases">案例資料表</a></li><li><a href="#knowledge">知識庫</a></li><li><a href="#data">數據戰績</a></li></ul></div>
+      <div><h3>聯絡</h3><ul class="footer-list"><li>04-23756168</li><li>台中市</li><li><a href="#contact">預約評估</a></li></ul></div>
+    </div>
+  </footer>
+
+  <script>
+    const $ = (selector, scope = document) => scope.querySelector(selector);
+    const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+
+    const state = {
+      age: 45,
+      landArea: 38,
+      zone: 'core',
+      unitPrice: 62,
+      loanRatio: 80,
+      sortKey: 'bonus',
+      sortDir: 'desc',
+      activeTag: 'all'
+    };
+
+    const zoneMap = {
+      core: { label: '台中核心生活圈', baseFar: 3.0, price: 62, multiplier: 1.12 },
+      urban: { label: '一般都市計畫區', baseFar: 2.6, price: 52, multiplier: 1.0 },
+      suburb: { label: '外圍住宅區', baseFar: 2.2, price: 42, multiplier: .92 }
+    };
+
+    function formatNumber(num) {
+      return Math.round(num).toLocaleString('zh-TW');
+    }
+
+    function calculateBonus(age, zone) {
+      const ageBonus = age >= 60 ? 38 : age >= 50 ? 34 : age >= 40 ? 30 : age >= 30 ? 24 : 16;
+      const zoneBonus = zone === 'core' ? 4 : zone === 'urban' ? 2 : 0;
+      return Math.min(40, ageBonus + zoneBonus);
+    }
+
+    function updateCalculator() {
+      const age = Number($('#ageRange').value);
+      const landArea = Number($('#landArea').value || 0);
+      const zone = $('#zoneSelect').value;
+      const bonus = calculateBonus(age, zone);
+      const baseFar = zoneMap[zone].baseFar;
+      const newPing = landArea * baseFar * (1 + bonus / 100);
+      const value = newPing * zoneMap[zone].price * zoneMap[zone].multiplier;
+
+      state.age = age;
+      state.landArea = landArea;
+      state.zone = zone;
+
+      $('#ageValue').textContent = age;
+      $('#bonusPct').textContent = bonus;
+      $('#newPing').textContent = formatNumber(newPing);
+      $('#valueEstimate').textContent = formatNumber(value);
+      $('#bonusBar').style.width = `${Math.max(8, bonus / 40 * 100)}%`;
+      updateFinance();
+    }
+
+    function updateFinance() {
+      const bonus = calculateBonus(state.age, state.zone);
+      const newPing = state.landArea * zoneMap[state.zone].baseFar * (1 + bonus / 100);
+      const unitPrice = Number($('#unitPrice').value || 0);
+      const loanRatio = Number($('#loanRatio').value || 0);
+      const total = newPing * unitPrice;
+      const loan = total * loanRatio / 100;
+      $('#financeTotal').textContent = formatNumber(total);
+      $('#financeLoan').textContent = formatNumber(loan);
+    }
+
+    function updateRent() {
+      const months = Number($('#months').value || 0);
+      const rent = Number($('#rentPerMonth').value || 0);
+      $('#rentTotal').textContent = (months * rent).toLocaleString('zh-TW');
+    }
+
+    function updateEligibility() {
+      const score = $$('.eligibility:checked').reduce((sum, el) => sum + Number(el.value), 0);
+      let message = '請勾選條件。';
+      if (score >= 80) message = '高度適合進一步安排正式危老評估。';
+      else if (score >= 60) message = '具備初步條件，建議補齊基地與權屬資料。';
+      else if (score >= 40) message = '可能需要先確認結構、權屬或法規條件。';
+      else if (score > 0) message = '目前條件仍不足，建議先做免費初步諮詢。';
+      $('#eligibilityResult').textContent = `目前分數：${score} / 100。${message}`;
+    }
+
+    const cases = [
+      { name: '七期 50 年老宅初評', region: '西區七期', type: '公寓', age: 50, before: 42, after: 168, bonus: 38, duration: 31 },
+      { name: '北屯家族整合案', region: '北屯', type: '透天', age: 45, before: 36, after: 138, bonus: 34, duration: 29 },
+      { name: '南區街角基地案', region: '南區', type: '大樓', age: 41, before: 58, after: 205, bonus: 31, duration: 34 },
+      { name: '龍井透天更新案', region: '龍井', type: '透天', age: 38, before: 30, after: 98, bonus: 27, duration: 26 },
+      { name: '沙鹿自地自建案', region: '沙鹿', type: '透天', age: 33, before: 48, after: 152, bonus: 24, duration: 28 },
+      { name: '北屯集合住宅案', region: '北屯', type: '大樓', age: 52, before: 72, after: 268, bonus: 39, duration: 36 }
+    ];
+
+    function renderCases() {
+      const search = $('#caseSearch').value.trim().toLowerCase();
+      const region = $('#caseRegion').value;
+      const type = $('#caseType').value;
+      let rows = cases.filter(item => {
+        const matchSearch = !search || `${item.name}${item.region}${item.type}`.toLowerCase().includes(search);
+        const matchRegion = region === 'all' || item.region === region;
+        const matchType = type === 'all' || item.type === type;
+        return matchSearch && matchRegion && matchType;
+      });
+      rows.sort((a, b) => {
+        const av = a[state.sortKey];
+        const bv = b[state.sortKey];
+        const result = typeof av === 'number' ? av - bv : String(av).localeCompare(String(bv), 'zh-Hant');
+        return state.sortDir === 'asc' ? result : -result;
+      });
+      $('#casesTable tbody').innerHTML = rows.map(item => `
+        <tr>
+          <td><strong>${item.name}</strong></td>
+          <td>${item.region}</td>
+          <td><span class="tag">${item.type}</span></td>
+          <td>${item.age} 年</td>
+          <td>${item.before} 坪</td>
+          <td>${item.after} 坪</td>
+          <td>${item.bonus}%</td>
+          <td>${item.duration} 個月</td>
+        </tr>
+      `).join('');
+    }
+
+    function exportCsv() {
+      const headers = ['案名','區域','樓型','屋齡','原坪數','重建後坪數','容積獎勵%','重建時長(月)'];
+      const rows = cases.map(c => [c.name, c.region, c.type, c.age, c.before, c.after, c.bonus, c.duration]);
+      const csv = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replaceAll('"','""')}"`).join(',')).join('\n');
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'longpon-cases.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    const articles = [
+      { title: '危老建物如何定義？初評與詳評差在哪裡', tag: '法律', desc: '快速理解危老資格、申請流程與常見卡關點。' },
+      { title: '容積獎勵怎麼算？屋齡、耐震與時程獎勵一次看', tag: '容積', desc: '把複雜法規拆成屋主看得懂的計算邏輯。' },
+      { title: '0 自備款可行嗎？危老重建融資與信託架構', tag: '融資', desc: '說明銀行、信託、建經如何降低屋主資金壓力。' },
+      { title: '重建期間房租補貼怎麼估？搬遷前要先問的 6 件事', tag: '融資', desc: '用實際生活情境拆解搬遷成本與時間安排。' },
+      { title: '重建後稅務會變嗎？地價稅、房屋稅與出售規劃', tag: '稅務', desc: '重建不只看坪數，也要把長期持有成本納入。' },
+      { title: '老屋結構安全怎麼判斷？從裂縫、漏水到耐震評估', tag: '結構', desc: '協助家人判斷何時該安排專業技師評估。' }
+    ];
+
+    function renderArticles() {
+      const keyword = $('#articleSearch').value.trim().toLowerCase();
+      const activeTag = state.activeTag;
+      const filtered = articles.filter(article => {
+        const matchTag = activeTag === 'all' || article.tag === activeTag;
+        const matchKeyword = !keyword || `${article.title}${article.tag}${article.desc}`.toLowerCase().includes(keyword);
+        return matchTag && matchKeyword;
+      });
+      $('#articleGrid').innerHTML = filtered.map(article => `
+        <article class="article-card">
+          <span class="tag">#${article.tag}</span>
+          <h3 style="margin-top:12px;">${article.title}</h3>
+          <p>${article.desc}</p>
+          <a class="mini-link" href="#contact">取得完整評估 →</a>
+        </article>
+      `).join('') || '<p class="small">找不到符合的文章，請換一個關鍵字。</p>';
+    }
+
+    function countUp() {
+      const counters = $$('.count');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = Number(el.dataset.target);
+          const duration = 900;
+          const start = performance.now();
+          function tick(now) {
+            const progress = Math.min(1, (now - start) / duration);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(target * ease).toLocaleString('zh-TW');
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          observer.unobserve(el);
+        });
+      }, { threshold: .4 });
+      counters.forEach(el => observer.observe(el));
+    }
+
+    function initCharts() {
+      if (!window.Chart) return;
+      const lineCtx = $('#lineChart');
+      const barCtx = $('#barChart');
+      new Chart(lineCtx, {
+        type: 'line',
+        data: {
+          labels: ['2021','2022','2023','2024','2025','2026'],
+          datasets: [{ label: '諮詢量', data: [80, 124, 180, 238, 318, 410], borderColor: '#635BFF', backgroundColor: 'rgba(99,91,255,.12)', tension: .35, fill: true }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#E2E8F0' } }, x: { grid: { display: false } } } }
+      });
+      new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['容積', '融資', '房租', '工期', '信託'],
+          datasets: [{ label: '效益分數', data: [92, 84, 76, 71, 88], backgroundColor: '#635BFF', borderRadius: 8 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: '#E2E8F0' } }, x: { grid: { display: false } } } }
+      });
+    }
+
+    function bindEvents() {
+      ['ageRange','landArea','zoneSelect'].forEach(id => $('#' + id).addEventListener('input', updateCalculator));
+      ['unitPrice','loanRatio'].forEach(id => $('#' + id).addEventListener('input', updateFinance));
+      ['months','rentPerMonth'].forEach(id => $('#' + id).addEventListener('input', updateRent));
+      $$('.eligibility').forEach(el => el.addEventListener('change', updateEligibility));
+      ['caseSearch','caseRegion','caseType'].forEach(id => $('#' + id).addEventListener('input', renderCases));
+      $('#exportCsv').addEventListener('click', exportCsv);
+      $$('#casesTable th').forEach(th => th.addEventListener('click', () => {
+        const key = th.dataset.key;
+        if (state.sortKey === key) state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+        else { state.sortKey = key; state.sortDir = 'asc'; }
+        renderCases();
+      }));
+      $('#articleSearch').addEventListener('input', renderArticles);
+      $$('.filter-tag').forEach(btn => btn.addEventListener('click', () => {
+        $$('.filter-tag').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.activeTag = btn.dataset.tag;
+        renderArticles();
+      }));
+      window.addEventListener('scroll', () => {
+        $('#siteHeader').classList.toggle('is-scrolled', window.scrollY > 80);
+      }, { passive: true });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCalculator();
+      updateRent();
+      updateEligibility();
+      renderCases();
+      renderArticles();
+      countUp();
+      bindEvents();
+      window.addEventListener('load', initCharts, { once: true });
+      setTimeout(initCharts, 600);
+    });
+  </script>
+</body>
+</html>

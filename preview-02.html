@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隆磐建設股份有限公司 | 台中危老都更重建專家</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white: #FFFFFF;
+    --black: #0A0A0A;
+    --charcoal: #1C1C1E;
+    --red: #C0392B;
+    --red-dark: #96281B;
+    --red-light: #E74C3C;
+    --gray-light: #F5F5F7;
+    --gray-mid: #E8E8ED;
+    --gray-text: #6E6E73;
+    --border: rgba(0,0,0,0.08);
+    --shadow: 0 2px 40px rgba(0,0,0,0.06);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+    --nav-h: 72px;
+    --max-w: 1200px;
+    --font-zh: 'Noto Sans TC', sans-serif;
+    --font-en: 'DM Sans', sans-serif;
+    --font-display: 'Playfair Display', serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font-zh);
+    color: var(--charcoal);
+    background: var(--white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    width: 100%;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── SCROLL ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(.16,1,.3,1), transform 0.8s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 1px 20px rgba(0,0,0,0.08); }
+  .nav-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    background: var(--red);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-logo-mark svg { width: 22px; height: 22px; fill: white; }
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .nav-logo-cn {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: 0.04em;
+  }
+  .nav-logo-en {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--gray-text);
+    letter-spacing: 0.1em;
+    font-family: var(--font-en);
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--charcoal);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta {
+    background: var(--red);
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--red-dark) !important; color: white !important; }
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .nav-hamburger span {
+    width: 24px; height: 2px;
+    background: var(--charcoal);
+    border-radius: 2px;
+    transition: all 0.3s;
+    display: block;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    padding-top: var(--nav-h);
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-bg-accent {
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(192,57,43,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(192,57,43,0.08);
+    border: 1px solid rgba(192,57,43,0.2);
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{ opacity:1; transform: scale(1); }
+    50%{ opacity:0.5; transform: scale(1.4); }
+  }
+  .hero-title {
+    font-family: var(--font-zh);
+    font-size: clamp(48px, 5.5vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--charcoal);
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .hero-title .accent { color: var(--red); }
+  .hero-title .thin { font-weight: 300; }
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--gray-text);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(192,57,43,0.35); }
+  .btn-secondary {
+    color: var(--charcoal);
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--gray-mid);
+  }
+  .btn-secondary:hover { background: var(--gray-light); }
+  .btn-secondary svg { transition: transform 0.2s; }
+  .btn-secondary:hover svg { transform: translateX(3px); }
+
+  /* HERO ILLUSTRATION */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .building-svg-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 1;
+  }
+  .building-svg-wrap svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* SVG line draw animation */
+  .draw-line {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: drawIn 3s ease forwards;
+  }
+  .draw-line-2 { animation-delay: 0.3s; }
+  .draw-line-3 { animation-delay: 0.6s; }
+  .draw-line-4 { animation-delay: 0.9s; }
+  .draw-line-5 { animation-delay: 1.2s; }
+  .draw-line-fill {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 2s;
+  }
+  @keyframes drawIn {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .float-card {
+    position: absolute;
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 1px solid var(--border);
+    animation: floatUp 6s ease-in-out infinite;
+  }
+  .float-card-1 {
+    bottom: 10%; left: -5%;
+    animation-delay: 0s;
+  }
+  .float-card-2 {
+    top: 10%; right: -5%;
+    animation-delay: 2s;
+  }
+  @keyframes floatUp {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float-card-label {
+    font-size: 10px;
+    color: var(--gray-text);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-family: var(--font-en);
+  }
+  .float-card-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--charcoal);
+  }
+  .float-card-value span { color: var(--red); }
+
+  /* ── FEATURES ── */
+  #features {
+    padding: 120px 0;
+    background: var(--white);
+  }
+  .section-label {
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .section-title {
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .section-sub {
+    font-size: 17px;
+    color: var(--gray-text);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 520px;
+  }
+  .features-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 72px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature-card {
+    background: var(--gray-light);
+    border-radius: 20px;
+    padding: 36px 32px;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(.16,1,.3,1);
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    border: 1px solid var(--red);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feature-card:hover { background: white; box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .feature-icon svg { width: 26px; height: 26px; stroke: white; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .feature-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 10px;
+    letter-spacing: 0.01em;
+  }
+  .feature-desc {
+    font-size: 14px;
+    color: var(--gray-text);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  /* ── STATS ── */
+  #stats {
+    padding: 100px 0;
+    background: var(--charcoal);
+    position: relative;
+    overflow: hidden;
+  }
+  #stats::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+  }
+  .stats-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    position: relative;
+  }
+  .stat-item {
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+  }
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 20%; bottom: 20%;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6vw, 80px);
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+  }
+  .stat-number .stat-accent { color: var(--red-light); }
+  .stat-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 140px 0;
+    background: var(--white);
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .about-left .section-sub { max-width: 420px; margin-bottom: 40px; }
+  .about-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(192,57,43,0.08);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-top: 32px;
+    letter-spacing: 0.03em;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .team-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--gray-light);
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .team-item:hover { background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+  .team-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: rgba(192,57,43,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .team-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--charcoal);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── PROCESS ── */
+  #process {
+    padding: 140px 0;
+    background: var(--gray-light);
+  }
+  .process-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .process-header .section-sub {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 52px;
+    left: calc(12.5%);
+    right: calc(12.5%);
+    height: 2px;
+    background: linear-gradient(90deg, var(--red) 0%, rgba(192,57,43,0.2) 100%);
+  }
+  .step-item {
+    padding: 0 20px;
+    position: relative;
+  }
+  .step-dot {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--gray-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+    font-family: var(--font-en);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-text);
+  }
+  .step-item:first-child .step-dot {
+    border-color: var(--red);
+    background: var(--red);
+    color: white;
+  }
+  .step-label {
+    font-family: var(--font-en);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--red);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--gray-text);
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  /* ── HIGHLIGHT ── */
+  #highlight {
+    padding: 160px 0;
+    background: var(--red);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  #highlight::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -20%;
+    width: 60%; height: 200%;
+    background: rgba(255,255,255,0.04);
+    transform: rotate(-15deg);
+  }
+  #highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -50%; right: -20%;
+    width: 60%; height: 200%;
+    background: rgba(0,0,0,0.1);
+    transform: rotate(-15deg);
+  }
+  .highlight-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .highlight-eyebrow {
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+    display: block;
+  }
+  .highlight-title {
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 900;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .highlight-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 48px;
+  }
+  .btn-outline-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid rgba(255,255,255,0.8);
+    color: white;
+    padding: 18px 40px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.25s;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.1);
+  }
+  .btn-outline-white:hover {
+    background: white;
+    color: var(--red);
+    border-color: white;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    color: white;
+    padding: 80px 0 40px;
+  }
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr;
+    gap: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .footer-logo-mark {
+    width: 36px; height: 36px;
+    background: var(--red);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .footer-logo-mark svg { width: 22px; height: 22px; fill: white; }
+  .footer-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .footer-brand-cn { font-size: 14px; font-weight: 700; color: white; letter-spacing: 0.04em; }
+  .footer-brand-en { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; font-family: var(--font-en); text-transform: uppercase; }
+  .footer-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 28px;
+  }
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-social {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 16px;
+  }
+  .footer-social:hover { border-color: white; background: rgba(255,255,255,0.1); }
+  .footer-col-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 24px;
+    font-family: var(--font-en);
+  }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .footer-links a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .footer-links a:hover { color: white; }
+  .footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .footer-contact-icon {
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .footer-contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .footer-contact-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    font-family: var(--font-en);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .footer-contact-value {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-copy {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    font-family: var(--font-en);
+  }
+  .footer-tagline {
+    font-size: 13px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── FLOAT BUTTONS ── */
+  .float-btns {
+    position: fixed;
+    right: 24px;
+    bottom: 40px;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .float-btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+  .float-btn:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+  .float-btn-fb { background: #1877F2; }
+  .float-btn-line { background: #06C755; }
+  .float-btn-tel { background: #FF6B00; }
+  .float-btn svg { width: 22px; height: 22px; fill: white; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: var(--nav-h); left: 0; right: 0;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      gap: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+    .nav-hamburger { display: flex; }
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { order: -1; }
+    .building-svg-wrap { max-width: 320px; }
+    .float-card-1, .float-card-2 { display: none; }
+    .features-header { grid-template-columns: 1fr; gap: 24px; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .stats-inner { grid-template-columns: 1fr; gap: 0; }
+    .stat-item:not(:last-child)::after { display: none; }
+    .stat-item { padding: 40px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .about-inner { grid-template-columns: 1fr; gap: 60px; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-steps::before { display: none; }
+    .footer-main { grid-template-columns: 1fr; gap: 48px; }
+    .container { padding: 0 20px; }
+  }
+
+  @media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark">
+          <svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12H3zm7-2h4v-5h-4v5z"/></svg>
+        </div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-cn">隆磐建設</span>
+          <span class="nav-logo-en">Longpon Construction</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">關於我們</a></li>
+        <li><a href="#features">六大服務</a></li>
+        <li><a href="#process">服務流程</a></li>
+        <li><a href="#stats">工程實績</a></li>
+        <li><a href="#contact" class="nav-cta">聯絡我們</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-accent"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge reveal">免費評估中 ✦ 台中危老都更重建</div>
+        <h1 class="hero-title reveal reveal-delay-1">
+          危老都更<br>
+          <span class="accent">重建</span><span class="thin">專家</span>
+        </h1>
+        <p class="hero-sub reveal reveal-delay-2">
+          隆磐建設深耕台中，整合危老重建、都市更新、自地自建全方位服務，
+          以甲級營造廠品質，豐富實績值得信賴。
+        </p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="#contact" class="btn-primary">
+            免費諮詢評估
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#about" class="btn-secondary">
+            了解更多
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal reveal-delay-2">
+        <div class="building-svg-wrap">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background circle -->
+            <circle cx="200" cy="200" r="180" fill="rgba(245,245,247,0.8)" class="draw-line-fill"/>
+            
+            <!-- Main building -->
+            <rect class="draw-line" x="120" y="100" width="160" height="240" rx="4"
+              fill="none" stroke="#C0392B" stroke-width="2"/>
+            <!-- Windows row 1 -->
+            <rect class="draw-line draw-line-2" x="135" y="120" width="28" height="28" rx="3" fill="none" stroke="#C0392B" stroke-width="1.5"/>
+            <rect class="draw-line draw-line-2" x="175" y="120" width="28" height="28" rx="3" fill="none" stroke="#C0392B" stroke-width="1.5"/>
+            <rect class="draw-line draw-line-2" x="215" y="120" width="28" height="28" rx="3" fill="none" stroke="#C0392B" stroke-width="1.5"/>
+            <!-- Windows row 2 -->
+            <rect class="draw-line draw-line-3" x="135" y="165" width="28" height="28" rx="3" fill="none" stroke="#1C1C1E" stroke-width="1.5"/>
+            <rect class="draw-line draw-line-3" x="175" y="165" width="28" height="28" rx="3" fill="none" stroke="#1C1C1E" stroke-width="1.5"/>
+            <rect class="draw-line draw-line-3" x="215" y="165" width="28" height="28" rx="3" fill="none" stroke="#1C1C1E" stroke-width="1.5"/>
+            <!-- Windows row 3 -->
+            <rect class="draw-line draw-line-4" x="135" y="210" width="28" height="28" rx="3" fill="none" stroke="#1C1C1E" stroke-width="1.5"/>
+            <rect class="draw-line draw-line-4" x="175" y="210" width="28" height="28" rx="3" fill="none" stroke="#1C1C1E" stroke-width="1.5"/>
+            <rect class="draw-line draw-line-4" x="215" y="210" width="28" height="28" rx="3" fill="none" stroke="#1C1C1E" stroke-width="1.5"/>
+            <!-- Door -->
+            <rect class="draw-line draw-line-5" x="170" y="295" width="60" height="45" rx="4" fill="none" stroke="#C0392B" stroke-width="2"/>
+            <!-- Ground line -->
+            <line class="draw-line draw-line-5" x1="60" y1="340" x2="340" y2="340" stroke="#E8E8ED" stroke-width="2"/>
+            <!-- Side building left -->
+            <rect class="draw-line draw-line-3" x="60" y="170" width="55" height="170" rx="3" fill="none" stroke="#E8E8ED" stroke-width="1.5"/>
+            <!-- Side building right -->
+            <rect class="draw-line draw-line-3" x="285" y="200" width="55" height="140" rx="3" fill="none" stroke="#E8E8ED" stroke-width="1.5"/>
+            <!-- Grid dots -->
+            <g class="draw-line-fill" opacity="0.3">
+              <circle cx="80" cy="80" r="2" fill="#C0392B"/>
+              <circle cx="120" cy="80" r="2" fill="#C0392B"/>
+              <circle cx="80" cy="120" r="2" fill="#C0392B"/>
+              <circle cx="320" cy="80" r="2" fill="#C0392B"/>
+              <circle cx="320" cy="120" r="2" fill="#C0392B"/>
+              <circle cx="360" cy="80" r="2" fill="#C0392B"/>
+            </g>
+            <!-- Decorative arc -->
+            <path class="draw-line draw-line-2" d="M 100 340 Q 200 60 300 340" fill="none" stroke="rgba(192,57,43,0.15)" stroke-width="1.5" stroke-dasharray="6 4"/>
+          </svg>
+
+          <!-- Floating cards -->
+          <div class="float-card float-card-1">
+            <div class="float-card-label">說明會場次</div>
+            <div class="float-card-value"><span>200</span>+ 場</div>
+          </div>
+          <div class="float-card float-card-2">
+            <div class="float-card-label">建築金質獎</div>
+            <div class="float-card-value">第 <span>26</span> 屆</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="features-header">
+      <div>
+        <span class="section-label reveal">Our Services</span>
+        <h2 class="section-title reveal reveal-delay-1">六大核心<br>專業服務</h2>
+      </div>
+      <p class="section-sub reveal reveal-delay-2">
+        整合跨領域專業團隊，從評估規劃到完工交屋，提供全方位一站式服務，讓您的建築夢想完整實現。
+      </p>
+    </div>
+    <div class="features-grid">
+      <!-- 1 -->
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21V12h6v9"/></svg>
+        </div>
+        <div class="feature-title">危老重建</div>
+        <p class="feature-desc">協助老舊建築申請危老重建，容積獎勵最大化，活化不動產資產價值，打造安全現代住宅。</p>
+      </div>
+      <!-- 2 -->
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="feature-title">建築設計</div>
+        <p class="feature-desc">結合建築師與結構技師，客製化量身規劃設計，兼顧美學、實用性與法規合規性。</p>
+      </div>
+      <!-- 3 -->
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="feature-title">自地自建</div>
+        <p class="feature-desc">地主自主開發，完整統籌規劃、設計、施工管理，確保品質並最大化開發效益。</p>
+      </div>
+      <!-- 4 -->
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="feature-title">稅務規劃</div>
+        <p class="feature-desc">專業會計師介入，各階段完整稅務試算與規劃，合法節稅，保障開發最大收益。</p>
+      </div>
+      <!-- 5 -->
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="feature-title">大小面積合建</div>
+        <p class="feature-desc">整合社區地主共識，協助合建談判與分配規劃，解決地籍疑難雜症，推動合建順利進行。</p>
+      </div>
+      <!-- 6 -->
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <div class="feature-title">銀行融資</div>
+        <p class="feature-desc">協助辦理土建融資信託，資金全案信託管理，確保開發資金安全透明，優惠融資貸款規劃。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <div class="stat-number"><span class="counter stat-accent" data-target="200">0</span><span class="stat-accent">+</span></div>
+        <div class="stat-label">危老都更說明會場次</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-number">第<span class="counter stat-accent" data-target="26">0</span>屆</div>
+        <div class="stat-label">國家建築金質獎</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-number" style="color:white">甲<span class="stat-accent">級</span></div>
+        <div class="stat-label">營造廠認證 · 品質保證</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-left">
+        <span class="section-label reveal">About Us</span>
+        <h2 class="section-title reveal reveal-delay-1">跨領域整合<br>專業開發團隊</h2>
+        <p class="section-sub reveal reveal-delay-2">
+          隆磐建設採取 Team Work 概念整合跨領域專業，涵蓋老屋重建、都市更新社區整合、地籍疑難雜症處理、自地自建、建築規劃設計、稅務、法律、融資規劃及甲級營造廠統籌管理。
+        </p>
+        <div class="about-tag reveal reveal-delay-3">
+          ✦ 專業、安心、全心投入 — 豐富經驗值得信賴
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="team-grid">
+          <div class="team-item reveal">
+            <div class="team-icon">🏗️</div>
+            <div class="team-name">營造工程顧問</div>
+          </div>
+          <div class="team-item reveal reveal-delay-1">
+            <div class="team-icon">🏛️</div>
+            <div class="team-name">建築師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-1">
+            <div class="team-icon">📐</div>
+            <div class="team-name">結構土木技師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-2">
+            <div class="team-icon">⚡</div>
+            <div class="team-name">機電技師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-2">
+            <div class="team-icon">🌿</div>
+            <div class="team-name">環境規劃師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-3">
+            <div class="team-icon">🏘️</div>
+            <div class="team-name">危老都更推動師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-3">
+            <div class="team-icon">📊</div>
+            <div class="team-name">不動產分析師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-4">
+            <div class="team-icon">💼</div>
+            <div class="team-name">律師 / 會計師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-4">
+            <div class="team-icon">💧</div>
+            <div class="team-name">水保技師</div>
+          </div>
+          <div class="team-item reveal reveal-delay-5">
+            <div class="team-icon">🏠</div>
+            <div class="team-name">室內裝修設計師</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="process-header">
+      <span class="section-label reveal">Process</span>
+      <h2 class="section-title reveal reveal-delay-1">四步驟完整服務流程</h2>
+      <p class="section-sub reveal reveal-delay-2">從規劃設計到完工交屋，專業團隊全程陪同，確保每個環節品質與進度。</p>
+    </div>
+    <div class="process-steps">
+      <div class="step-item reveal">
+        <div class="step-dot">01</div>
+        <span class="step-label">Step 1</span>
+        <div class="step-title">規劃設計 / 融資信託</div>
+        <p class="step-desc">初步建材選定、估算開發興建成本；辦理銀行土建融資信託；各階段稅務規劃。</p>
+      </div>
+      <div class="step-item reveal reveal-delay-1">
+        <div class="step-dot">02</div>
+        <span class="step-label">Step 2</span>
+        <div class="step-title">預售代銷 / 興建規劃</div>
+        <p class="step-desc">市場定位、銷售企劃策略；預售合約訂定、銷售進度管控；細部建材確認發包。</p>
+      </div>
+      <div class="step-item reveal reveal-delay-2">
+        <div class="step-dot">03</div>
+        <span class="step-label">Step 3</span>
+        <div class="step-title">施工管理 / 工程查驗</div>
+        <p class="step-desc">專業技師進度與品質監督；工程圖說釋疑、變更設計；工程請款查核計價。</p>
+      </div>
+      <div class="step-item reveal reveal-delay-3">
+        <div class="step-dot">04</div>
+        <span class="step-label">Step 4</span>
+        <div class="step-title">完工驗收 / 交屋結算</div>
+        <p class="step-desc">使用執照取得；完工驗收、過戶交屋、成立管委會；塗銷信託、全案結算。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT -->
+<section id="highlight">
+  <div class="container">
+    <div class="highlight-inner">
+      <span class="highlight-eyebrow reveal">Brand Promise</span>
+      <h2 class="highlight-title reveal reveal-delay-1">只要一個改變<br>價值翻倍</h2>
+      <p class="highlight-sub reveal reveal-delay-2">
+        讓老屋重生、讓土地增值、讓家人住得安心。<br>
+        隆磐建設陪您走每一步，從評估到交屋全程把關。
+      </p>
+      <div class="reveal reveal-delay-3">
+        <a href="#contact" class="btn-outline-white">
+          立即免費諮詢評估
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="container">
+    <div class="footer-main">
+      <!-- Brand -->
+      <div>
+        <div class="footer-brand">
+          <div class="footer-logo-mark">
+            <svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12H3zm7-2h4v-5h-4v5z"/></svg>
+          </div>
+          <div class="footer-brand-text">
+            <span class="footer-brand-cn">隆磐建設股份有限公司</span>
+            <span class="footer-brand-en">Longpon Construction Co., Ltd.</span>
+          </div>
+        </div>
+        <p class="footer-desc">
+          深耕台中危老重建，跨領域整合專業團隊，<br>
+          以甲級營造廠品質，為您打造安心理想住宅。<br>
+          200+ 場說明會，第26屆國家建築金質獎認證。
+        </p>
+        <div class="footer-socials">
+          <a class="footer-social" href="#" title="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="rgba(255,255,255,0.6)">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+            </svg>
+          </a>
+          <a class="footer-social" href="#" title="LINE">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="rgba(255,255,255,0.6)">
+              <path d="M12 2C6.48 2 2 5.92 2 10.73c0 3.09 1.73 5.83 4.37 7.54L5.5 22l4.32-2.12c.72.2 1.46.3 2.18.3 5.52 0 10-3.92 10-8.45C22 5.92 17.52 2 12 2z"/>
+            </svg>
+          </a>
+          <a class="footer-social" href="tel:0423756168" title="電話">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63 2 2 0 012-2.18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 6.91a16 16 0 006.18 6.18l1.08-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#about">關於我們</a></li>
+          <li><a href="#features">工程實績</a></li>
+          <li><a href="#features">都更危老專區</a></li>
+          <li><a href="#features">危老案例</a></li>
+          <li><a href="#features">隆磐專欄</a></li>
+          <li><a href="#features">影片專區</a></li>
+          <li><a href="#features">自地自建專區</a></li>
+          <li><a href="#contact">聯絡我們</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">📞</div>
+          <div class="footer-contact-text">
+            <span class="footer-contact-label">Phone</span>
+            <span class="footer-contact-value">04-23756168</span>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">✉️</div>
+          <div class="footer-contact-text">
+            <span class="footer-contact-label">Email</span>
+            <span class="footer-contact-value">longpon.co@gmail.com</span>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">📍</div>
+          <div class="footer-contact-text">
+            <span class="footer-contact-label">Address</span>
+            <span class="footer-contact-value">台中市西區五權路2-106號5F</span>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <div class="footer-contact-icon">🕐</div>
+          <div class="footer-contact-text">
+            <span class="footer-contact-label">Hours</span>
+            <span class="footer-contact-value">週一至週六 09:00–18:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Longpon Construction Co., Ltd. All rights reserved.</span>
+      <span class="footer-tagline">隆磐建設 — 台中危老都更重建專家</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOAT BUTTONS -->
+<div class="float-btns">
+  <a class="float-btn float-btn-fb" href="#" title="Facebook" aria-label="Facebook">
+    <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+  </a>
+  <a class="float-btn float-btn-line" href="https://line.me/ti/p/@492kyeqa" title="LINE" aria-label="LINE">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.92 2 10.73c0 3.09 1.73 5.83 4.37 7.54L5.5 22l4.32-2.12c.72.2 1.46.3 2.18.3 5.52 0 10-3.92 10-8.45C22 5.92 17.52 2 12 2zm-1.5 12.5H9v-6h1.5v6zm3 0H12v-6h1.5v6z"/></svg>
+  </a>
+  <a class="float-btn float-btn-tel" href="tel:0423756168" title="電話" aria-label="電話">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012.18 4h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 11.91a16 16 0 006.18 6.18l1.08-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+  </a>
+</div>
+
+<script>
+  // NAV scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // Intersection Observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Start counter if needed
+        const counters = entry.target.querySelectorAll ? entry.target.querySelectorAll('.counter') : [];
+        counters.forEach(startCounter);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stats counter animation
+  function startCounter(el) {
+    if (el.dataset.counted) return;
+    el.dataset.counted = true;
+    const target = parseInt(el.dataset.target);
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.floor(current);
+      if (current >= target) clearInterval(timer);
+    }, 16);
+  }
+
+  // Observe stats section separately for counters
+  const statsObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.counter').forEach(startCounter);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsSection = document.getElementById('stats');
+  if (statsSection) statsObs.observe(statsSection);
+
+  // Init visible elements
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.classList.add('visible');
+    }
+  });
+</script>
+
+</body>
+</html>

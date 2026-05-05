@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>隆磐建設｜家，值得被好好重建</title>
+  <meta name="description" content="隆磐建設 Warm Human 版本官網示意。以重生之家故事、危老重建、自地自建、屋主訪談與 before/after 案例為核心，呈現溫暖人文的品牌入口。" />
+  <meta name="theme-color" content="#E9DCC9" />
+  <meta name="robots" content="index,follow" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="隆磐建設｜家，值得被好好重建" />
+  <meta property="og:description" content="從重生之家開始，讓老屋被好好理解、好好重建。" />
+  <meta property="og:image" content="https://placehold.co/1200x630/E9DCC9/2A211B?text=Longpon+Warm+Human" />
+  <meta property="og:locale" content="zh_TW" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="隆磐建設｜家，值得被好好重建" />
+  <meta name="twitter:description" content="重生之家、屋主訪談、before/after 案例與危老重建陪伴。" />
+  <meta name="twitter:image" content="https://placehold.co/1200x630/E9DCC9/2A211B?text=Longpon+Warm+Human" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --milk: #E9DCC9;
+      --milk-2: #F5EEE4;
+      --brick: #C66B43;
+      --brick-dark: #A74E2C;
+      --green: #2F4A3A;
+      --green-2: #456B56;
+      --black: #2A211B;
+      --muted: #77695F;
+      --white: #FFFDF8;
+      --line: rgba(42, 33, 27, .16);
+      --radius: 12px;
+      --container: 1160px;
+      --serif: "Noto Serif TC", "GenYoMin TW", "Songti TC", serif;
+      --sans: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--black);
+      background:
+        radial-gradient(circle at 10% 12%, rgba(198,107,67,.14), transparent 28rem),
+        radial-gradient(circle at 90% 8%, rgba(47,74,58,.12), transparent 24rem),
+        var(--milk-2);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+
+    .container {
+      width: min(var(--container), calc(100% - 36px));
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--brick-dark);
+      font-weight: 800;
+      letter-spacing: .16em;
+      font-size: .78rem;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--brick);
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 4.4rem);
+      line-height: 1.2;
+      letter-spacing: .03em;
+      margin: 12px 0 18px;
+      font-weight: 900;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      max-width: 720px;
+      margin: 0;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 12px 24px;
+      border-radius: 9999px;
+      border: 1px solid var(--black);
+      background: transparent;
+      color: var(--black);
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .btn::after {
+      content: "↗";
+      opacity: 0;
+      transform: translateX(-8px) rotate(-12deg);
+      transition: opacity .2s ease, transform .2s ease;
+      font-family: var(--serif);
+      color: currentColor;
+    }
+    .btn:hover::after { opacity: 1; transform: translateX(0) rotate(-12deg); }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--brick);
+      color: var(--white);
+      border-color: var(--brick);
+    }
+    .btn-primary:hover { background: var(--brick-dark); border-color: var(--brick-dark); }
+    .btn-soft {
+      background: rgba(255,253,248,.72);
+      border-color: rgba(42,33,27,.18);
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      transition: background .25s ease, border .25s ease, backdrop-filter .25s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .site-header.is-scrolled {
+      background: rgba(245,238,228,.92);
+      border-bottom-color: var(--line);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      color: var(--black);
+      letter-spacing: .08em;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border: 2px solid var(--green);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,253,248,.68);
+    }
+    .brand-mark svg { width: 24px; height: 24px; }
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 24px;
+      color: rgba(42,33,27,.82);
+      font-size: .95rem;
+      font-weight: 700;
+    }
+    .nav-links a { position: relative; }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 1px;
+      background: var(--brick);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .2s ease;
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-actions { display: none; gap: 10px; }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 112px 0 54px;
+      background:
+        linear-gradient(90deg, rgba(233,220,201,.88), rgba(233,220,201,.56), rgba(233,220,201,.20)),
+        url("https://placehold.co/1800x1200/BF9C7A/2A211B?text=%E7%A5%96%E5%AD%AB%E4%B8%89%E4%BB%A3%E7%9A%84%E5%AE%B6%E4%B8%AD%E6%9A%96%E8%89%B2%E7%85%A7") center/cover no-repeat;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(233,220,201,.42);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+    .hero-kicker {
+      display: inline-flex;
+      padding: 8px 14px;
+      border: 1px solid rgba(42,33,27,.2);
+      border-radius: 9999px;
+      background: rgba(255,253,248,.58);
+      color: var(--green);
+      font-weight: 900;
+      letter-spacing: .12em;
+      font-size: .82rem;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.1rem, 8vw, 7.8rem);
+      line-height: 1.02;
+      letter-spacing: .04em;
+      margin: 24px 0 24px;
+      font-weight: 900;
+    }
+    .hero-text {
+      max-width: 650px;
+      font-size: clamp(1.08rem, 2vw, 1.32rem);
+      color: rgba(42,33,27,.82);
+      font-weight: 500;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+    .hero-note {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: rgba(42,33,27,.74);
+      font-weight: 700;
+      font-size: .94rem;
+    }
+    .hero-note span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-note span::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brick);
+    }
+
+    .doodle {
+      position: absolute;
+      pointer-events: none;
+      opacity: .72;
+      transform: translate3d(0, calc(var(--parallax, 0) * .08px), 0);
+      transition: transform .08s linear;
+    }
+    .doodle-house { right: 7%; bottom: 8%; width: 160px; }
+    .doodle-family { right: 17%; top: 18%; width: 130px; opacity: .54; }
+    .doodle-worker { left: 5%; bottom: 26%; width: 115px; opacity: .48; }
+
+    section { position: relative; padding: 88px 0; }
+
+    .story-grid {
+      display: grid;
+      gap: 34px;
+      align-items: center;
+      grid-template-columns: 1fr;
+    }
+    .story-card {
+      background: rgba(255,253,248,.72);
+      border: 1px solid rgba(42,33,27,.14);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .story-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      filter: sepia(.15) saturate(.9) brightness(.98);
+    }
+    .story-card-body { padding: 24px; }
+    .story-card h2,
+    .story-card h3 {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3vw, 3rem);
+      line-height: 1.25;
+      margin: 0 0 14px;
+    }
+    .story-card p { color: var(--muted); margin: 0 0 20px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .tag {
+      border-radius: 9999px;
+      border: 1px solid rgba(47,74,58,.24);
+      color: var(--green);
+      background: rgba(233,220,201,.38);
+      padding: 6px 12px;
+      font-weight: 800;
+      font-size: .82rem;
+    }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 40px;
+    }
+    .promise-card {
+      background: rgba(255,253,248,.66);
+      border: 1px solid rgba(42,33,27,.13);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 260px;
+    }
+    .promise-card svg { width: 72px; height: 72px; margin-bottom: 18px; }
+    .promise-card h3 {
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .promise-card p { color: var(--muted); margin: 0; }
+
+    .timeline {
+      margin-top: 46px;
+      display: grid;
+      gap: 26px;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      align-items: center;
+      background: rgba(255,253,248,.6);
+      border: 1px solid rgba(42,33,27,.13);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .timeline-art {
+      min-height: 190px;
+      border-radius: var(--radius);
+      background: var(--milk);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .timeline-art svg { width: min(210px, 70%); height: auto; }
+    .timeline-copy .num {
+      color: var(--brick);
+      font-family: var(--serif);
+      font-size: 3rem;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .timeline-copy h3 {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      line-height: 1.25;
+      margin: 10px 0 10px;
+    }
+    .timeline-copy p { margin: 0; color: var(--muted); }
+
+    .case-panel {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .ba-slider {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--milk);
+      border: 1px solid rgba(42,33,27,.16);
+      aspect-ratio: 16/10;
+      user-select: none;
+    }
+    .ba-slider img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ba-after { clip-path: inset(0 0 0 50%); }
+    .ba-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: var(--white);
+      box-shadow: 0 0 0 1px rgba(42,33,27,.22);
+    }
+    .ba-handle::before {
+      content: "↔";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--brick);
+      color: var(--white);
+      font-weight: 900;
+    }
+    .ba-range {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+    }
+    .ba-label {
+      position: absolute;
+      top: 14px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: rgba(42,33,27,.68);
+      color: var(--white);
+      font-weight: 800;
+      font-size: .82rem;
+    }
+    .ba-label.before { left: 14px; }
+    .ba-label.after { right: 14px; }
+    .case-copy {
+      background: rgba(255,253,248,.68);
+      border: 1px solid rgba(42,33,27,.14);
+      border-radius: var(--radius);
+      padding: 26px;
+    }
+    .case-copy h3 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      line-height: 1.25;
+      margin: 0 0 12px;
+    }
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 22px;
+    }
+    .audio-box {
+      border-radius: var(--radius);
+      background: var(--milk);
+      padding: 14px;
+      border: 1px solid rgba(42,33,27,.12);
+    }
+    .audio-box audio { width: 100%; }
+
+    .voices {
+      background: var(--green);
+      color: var(--white);
+      overflow: hidden;
+    }
+    .voices .eyebrow { color: var(--milk); }
+    .voices .eyebrow::before { background: var(--milk); }
+    .voices .section-lead { color: rgba(255,253,248,.78); }
+    .voice-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 42px;
+    }
+    .voice-card {
+      position: relative;
+      padding: 28px;
+      border-radius: var(--radius);
+      background: rgba(255,253,248,.08);
+      border: 1px solid rgba(255,253,248,.18);
+    }
+    .quote-mark {
+      font-family: var(--serif);
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--milk);
+      opacity: .74;
+    }
+    .voice-card p { margin: 0 0 18px; color: rgba(255,253,248,.86); }
+    .voice-card strong { color: var(--milk); }
+
+    .rebirth {
+      background: var(--milk);
+    }
+    .rebirth-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: center;
+      border-radius: var(--radius);
+      border: 1px solid rgba(42,33,27,.16);
+      background: rgba(255,253,248,.46);
+      padding: 24px;
+    }
+    .rebirth-card img {
+      border-radius: var(--radius);
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      filter: sepia(.2) saturate(.9);
+    }
+    .rebirth h2 { color: var(--brick-dark); }
+
+    .contact {
+      background:
+        linear-gradient(rgba(42,33,27,.78), rgba(42,33,27,.78)),
+        url("https://placehold.co/1600x900/7A5A45/FFFDF8?text=%E5%AE%B6%E7%9A%84%E4%B8%8B%E4%B8%80%E7%AB%A0") center/cover no-repeat;
+      color: var(--white);
+      text-align: center;
+    }
+    .contact .section-lead { margin-inline: auto; color: rgba(255,253,248,.78); }
+    .form-card {
+      width: min(780px, 100%);
+      margin: 40px auto 0;
+      background: rgba(255,253,248,.92);
+      color: var(--black);
+      border-radius: var(--radius);
+      padding: 26px;
+      text-align: left;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .field label {
+      display: block;
+      font-weight: 900;
+      margin-bottom: 7px;
+      color: var(--green);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid rgba(42,33,27,.28);
+      background: transparent;
+      padding: 10px 0;
+      outline: none;
+      border-radius: 0;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus { border-bottom-color: var(--brick); }
+    .field-full { grid-column: 1 / -1; }
+
+    footer {
+      background: var(--black);
+      color: var(--milk-2);
+      padding: 58px 0 96px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+    .footer-grid h3,
+    .footer-grid h4 {
+      font-family: var(--serif);
+      margin: 0 0 12px;
+    }
+    .footer-grid p,
+    .footer-grid a { color: rgba(255,253,248,.72); }
+    .footer-links { display: grid; gap: 8px; }
+    .copyright {
+      border-top: 1px solid rgba(255,253,248,.12);
+      margin-top: 34px;
+      padding-top: 20px;
+      color: rgba(255,253,248,.56);
+      font-size: .88rem;
+    }
+
+    .floating-cta {
+      position: fixed;
+      right: 18px;
+      bottom: 88px;
+      z-index: 99;
+      display: grid;
+      gap: 10px;
+    }
+    .floating-cta a {
+      width: 54px;
+      height: 54px;
+      border-radius: 9999px;
+      display: grid;
+      place-items: center;
+      background: var(--green);
+      color: var(--white);
+      border: 1px solid rgba(255,253,248,.5);
+      font-weight: 900;
+    }
+    .mobile-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: rgba(245,238,228,.96);
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+    .mobile-bar a {
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+    .mobile-bar a:first-child { background: var(--brick); color: var(--white); }
+    .mobile-bar a:last-child { color: var(--green); }
+
+    @media (min-width: 640px) {
+      .promise-grid { grid-template-columns: repeat(3, 1fr); }
+      .voice-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 768px) {
+      .story-grid { grid-template-columns: .88fr 1.12fr; }
+      .case-panel { grid-template-columns: 1.15fr .85fr; }
+      .rebirth-card { grid-template-columns: .95fr 1.05fr; padding: 34px; }
+      .footer-grid { grid-template-columns: 1.6fr repeat(3, 1fr); }
+      .timeline-item { grid-template-columns: .85fr 1.15fr; padding: 28px; }
+      .timeline-item:nth-child(even) .timeline-art { order: 2; }
+      .timeline-item:nth-child(even) .timeline-copy { order: 1; }
+    }
+    @media (min-width: 1024px) {
+      .nav-links, .nav-actions { display: flex; }
+      .mobile-bar { display: none; }
+      footer { padding-bottom: 58px; }
+      .voice-grid { grid-template-columns: repeat(4, 1fr); }
+      section { padding: 112px 0; }
+    }
+    @media (min-width: 1280px) {
+      :root { --container: 1200px; }
+      .hero { padding-bottom: 72px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav" aria-label="主導覽">
+      <a class="brand" href="#top" aria-label="隆磐建設首頁">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none"><path d="M12 34 32 16l20 18v16H12V34Z" stroke="#2F4A3A" stroke-width="4" stroke-linejoin="round"/><path d="M26 50V36h12v14" stroke="#C66B43" stroke-width="4" stroke-linejoin="round"/></svg>
+        </span>
+        隆磐建設
+      </a>
+      <nav class="nav-links" aria-label="網站頁面">
+        <a href="#story">重生之家</a>
+        <a href="#promise">我們的承諾</a>
+        <a href="#process">重建流程</a>
+        <a href="#case">案例訪談</a>
+        <a href="#voices">屋主推薦</a>
+        <a href="#contact">聯絡我們</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-soft" href="tel:0423756168">04-2375-6168</a>
+        <a class="btn btn-primary" href="#contact">說說我家的故事</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="heroTitle">
+      <svg class="doodle doodle-house" data-parallax="0.35" viewBox="0 0 180 120" fill="none" aria-hidden="true">
+        <path d="M20 68 90 18l70 50" stroke="#2F4A3A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M38 66v38h104V66" stroke="#2F4A3A" stroke-width="5" stroke-linecap="round"/>
+        <path d="M78 104V78h24v26" stroke="#C66B43" stroke-width="5" stroke-linecap="round"/>
+        <path d="M52 34c8-11 20-14 31-10" stroke="#C66B43" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <svg class="doodle doodle-family" data-parallax="0.7" viewBox="0 0 140 120" fill="none" aria-hidden="true">
+        <circle cx="42" cy="34" r="15" stroke="#2A211B" stroke-width="4"/><circle cx="87" cy="31" r="18" stroke="#2A211B" stroke-width="4"/><circle cx="68" cy="64" r="12" stroke="#C66B43" stroke-width="4"/>
+        <path d="M18 108c3-34 47-34 51 0M67 108c4-39 55-39 58 0M48 112c2-25 37-25 40 0" stroke="#2A211B" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <svg class="doodle doodle-worker" data-parallax="0.55" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <path d="M30 42h60M38 34c8-20 36-20 44 0" stroke="#C66B43" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="60" cy="52" r="18" stroke="#2F4A3A" stroke-width="4"/>
+        <path d="M32 110c4-32 52-32 56 0" stroke="#2F4A3A" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <div class="container hero-content">
+        <span class="hero-kicker">LONGPON WARM HUMAN</span>
+        <h1 id="heroTitle">家，值得被好好重建</h1>
+        <p class="hero-text">老屋不是只有坪數與容積，它裝著一家人的晚餐、孩子長大的牆、長輩捨不得離開的巷口。隆磐用 37 年整合經驗與 42 年營造底子，陪您把家的下一章寫得安心一點。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#story">看重生之家的故事</a>
+          <a class="btn btn-soft" href="#case">體驗前後對比案例</a>
+        </div>
+        <div class="hero-note" aria-label="品牌特色">
+          <span>100% 權益歸地主</span>
+          <span>0 自備款與融資協助</span>
+          <span>第三方查核後再請款</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="story" aria-labelledby="storyTitle">
+      <div class="container story-grid">
+        <article class="story-card">
+          <img loading="lazy" src="https://placehold.co/900x680/C8A98E/2A211B?text=%E9%87%8D%E7%94%9F%E4%B9%8B%E5%AE%B6+%E5%B1%8B%E4%B8%BB%E8%A8%AA%E8%AB%87" alt="重生之家屋主訪談示意照">
+          <div class="story-card-body">
+            <span class="eyebrow">Recent Story</span>
+            <h2 id="storyTitle">最近的故事 — 重生之家</h2>
+            <p>有些房子不是不想修，是一家人早已不知道該從哪裡開始。隆磐協助貧困老人改建，讓遮風避雨重新變成一件踏實的事。</p>
+            <div class="tag-list">
+              <span class="tag">公益改建</span>
+              <span class="tag">老屋安全</span>
+              <span class="tag">家庭陪伴</span>
+            </div>
+          </div>
+        </article>
+        <div>
+          <span class="eyebrow">Why We Build</span>
+          <h2 class="section-title">重建，不只是把舊屋拆掉。</h2>
+          <p class="section-lead">對 55–75 歲屋主來說，危老重建最難的不是法規，而是「我是不是會被騙？」「施工期間住哪裡？」「孩子會不會因此背債？」我們把流程、資金、信託、建經、施工與驗收拆開說清楚，讓每一步都有可以信任的人與制度。</p>
+          <div class="tag-list" style="margin-top:28px">
+            <span class="tag">銀行 + 信託 + 建經</span>
+            <span class="tag">先施工，驗收後請款</span>
+            <span class="tag">房租補貼協助</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="promise" aria-labelledby="promiseTitle">
+      <div class="container">
+        <span class="eyebrow">Our Promise</span>
+        <h2 id="promiseTitle" class="section-title">給您、給家人、給孩子的承諾</h2>
+        <p class="section-lead">我們不把服務說成工程項目，而是回到每個家庭真正擔心的事：錢、住處、權益、品質，以及家人是否能放心。</p>
+        <div class="promise-grid">
+          <article class="promise-card">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M18 54 50 26l32 28v28H18V54Z" stroke="#2F4A3A" stroke-width="4" stroke-linejoin="round"/><path d="M40 82V62h20v20" stroke="#C66B43" stroke-width="4"/><path d="M28 38c8-9 19-12 29-9" stroke="#C66B43" stroke-width="3" stroke-linecap="round"/></svg>
+            <h3>給您一個不被催促的開始</h3>
+            <p>先了解屋況、基地條件與家族意願，再談規劃。讓長輩有時間理解，也讓每位共有人被好好說明。</p>
+          </article>
+          <article class="promise-card">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="34" cy="34" r="12" stroke="#2F4A3A" stroke-width="4"/><circle cx="66" cy="34" r="12" stroke="#2F4A3A" stroke-width="4"/><circle cx="50" cy="56" r="10" stroke="#C66B43" stroke-width="4"/><path d="M18 86c4-24 28-24 32 0M50 86c4-24 28-24 32 0M34 90c3-18 29-18 32 0" stroke="#2A211B" stroke-width="4" stroke-linecap="round"/></svg>
+            <h3>給家人一份看得懂的安心</h3>
+            <p>融資、信託、建經、第三方查核與驗收節點透明化，讓孩子也能協助父母判斷，不必只靠口頭承諾。</p>
+          </article>
+          <article class="promise-card">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M22 78h56M30 78V34h40v44M38 44h8M54 44h8M38 58h8M54 58h8" stroke="#2F4A3A" stroke-width="4" stroke-linecap="round"/><path d="M22 34 50 18l28 16" stroke="#C66B43" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>給孩子留下可承接的房子</h3>
+            <p>不只是安全補強，而是讓土地與房子重新被整理，成為下一代能居住、出租、傳承的資產。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" aria-labelledby="processTitle">
+      <div class="container">
+        <span class="eyebrow">Full-Service Journey</span>
+        <h2 id="processTitle" class="section-title">把複雜的重建，拆成能安心前進的六步</h2>
+        <p class="section-lead">每一步都以「人」為中心：先讓屋主理解，再讓家人放心，最後才讓工程順利推進。</p>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-art"><svg viewBox="0 0 180 140" fill="none"><path d="M30 82 90 35l60 47v38H30V82Z" stroke="#2F4A3A" stroke-width="6" stroke-linejoin="round"/><path d="M68 120V88h44v32" stroke="#C66B43" stroke-width="6"/><path d="M44 52c12-16 31-19 47-12" stroke="#C66B43" stroke-width="4" stroke-linecap="round"/></svg></div>
+            <div class="timeline-copy"><div class="num">01</div><h3>評估：先聽家的故事</h3><p>了解屋齡、基地、產權、居住狀態與家族關係，判斷是否適合危老、自地自建或都更整合。</p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-art"><svg viewBox="0 0 180 140" fill="none"><circle cx="62" cy="52" r="20" stroke="#2F4A3A" stroke-width="6"/><circle cx="118" cy="52" r="20" stroke="#2F4A3A" stroke-width="6"/><path d="M35 122c6-37 48-37 54 0M91 122c6-37 48-37 54 0" stroke="#C66B43" stroke-width="6" stroke-linecap="round"/></svg></div>
+            <div class="timeline-copy"><div class="num">02</div><h3>整合：讓每個家人都被說明</h3><p>面對共有、繼承、長輩與子女意見不同，我們協助把資訊翻成每個人聽得懂的語言。</p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-art"><svg viewBox="0 0 180 140" fill="none"><path d="M35 30h110v80H35z" stroke="#2F4A3A" stroke-width="6"/><path d="M55 50h70M55 70h50M55 90h58" stroke="#C66B43" stroke-width="5" stroke-linecap="round"/><path d="M130 104l18 18" stroke="#2F4A3A" stroke-width="6" stroke-linecap="round"/></svg></div>
+            <div class="timeline-copy"><div class="num">03</div><h3>規劃：把權益與資金講清楚</h3><p>協助試算容積獎勵、融資、信託、房租補貼與重建期間的生活安排。</p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-art"><svg viewBox="0 0 180 140" fill="none"><path d="M38 112h104" stroke="#2F4A3A" stroke-width="6" stroke-linecap="round"/><path d="M54 112V42h72v70" stroke="#2F4A3A" stroke-width="6"/><path d="M70 58h16M98 58h16M70 78h16M98 78h16" stroke="#C66B43" stroke-width="5" stroke-linecap="round"/><path d="M48 42 90 20l42 22" stroke="#C66B43" stroke-width="6" stroke-linecap="round"/></svg></div>
+            <div class="timeline-copy"><div class="num">04</div><h3>設計：讓新家保留生活習慣</h3><p>不只是外觀，而是把家人的動線、收納、採光與長輩安全納入設計。</p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-art"><svg viewBox="0 0 180 140" fill="none"><path d="M44 112h92M62 112V48h56v64" stroke="#2F4A3A" stroke-width="6" stroke-linecap="round"/><path d="M54 48h72M70 48V28M110 48V28" stroke="#C66B43" stroke-width="6" stroke-linecap="round"/><path d="M38 28h104" stroke="#2F4A3A" stroke-width="6" stroke-linecap="round"/></svg></div>
+            <div class="timeline-copy"><div class="num">05</div><h3>營造：先施工，查核後再請款</h3><p>透過銀行、信託、建經與第三方驗收節點，把屋主最擔心的工程品質與付款風險降到最低。</p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-art"><svg viewBox="0 0 180 140" fill="none"><path d="M34 78 90 34l56 44v42H34V78Z" stroke="#2F4A3A" stroke-width="6" stroke-linejoin="round"/><path d="M70 120V90h40v30" stroke="#C66B43" stroke-width="6"/><path d="M48 44c30-24 62-24 92 0" stroke="#C66B43" stroke-width="5" stroke-linecap="round"/></svg></div>
+            <div class="timeline-copy"><div class="num">06</div><h3>交屋：把故事交回家人手上</h3><p>完成驗收、結算與交屋，讓老屋的記憶轉化成下一代能繼續生活的新家。</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="case" aria-labelledby="caseTitle">
+      <div class="container">
+        <span class="eyebrow">Before / After</span>
+        <h2 id="caseTitle" class="section-title">從舊牆到新家，讓改變看得見</h2>
+        <p class="section-lead">滑動中間的把手，看看重建前後的差異；也可以播放 30 秒屋主聲音訪談，聽聽他們真正放心的那一刻。</p>
+        <div class="case-panel">
+          <div class="ba-slider" id="baSlider" aria-label="重建前後對比拉桿">
+            <img class="ba-before" loading="lazy" src="https://placehold.co/1200x750/8E7865/FFFDF8?text=%E9%87%8D%E5%BB%BA%E5%89%8D%EF%BC%9A%E8%80%81%E5%B1%8B%E7%8B%80%E6%85%8B" alt="重建前老屋示意">
+            <img class="ba-after" id="baAfter" loading="lazy" src="https://placehold.co/1200x750/D8B88F/2A211B?text=%E9%87%8D%E5%BB%BA%E5%BE%8C%EF%BC%9A%E6%BA%AB%E6%9A%96%E6%96%B0%E5%AE%B6" alt="重建後新家示意">
+            <span class="ba-label before">Before</span>
+            <span class="ba-label after">After</span>
+            <span class="ba-handle" id="baHandle" aria-hidden="true"></span>
+            <input class="ba-range" id="baRange" type="range" min="0" max="100" value="50" aria-label="調整重建前後對比比例">
+          </div>
+          <article class="case-copy">
+            <h3>北區老屋重建訪談</h3>
+            <p>屋主一家三代原本擔心搬遷、資金與施工風險。透過全案管理與信託查核，最後在熟悉的街區重新住進安全的新家。</p>
+            <div class="case-meta">
+              <span class="tag">台中北區</span>
+              <span class="tag">屋齡 48 年</span>
+              <span class="tag">三代同堂</span>
+            </div>
+            <div class="audio-box">
+              <strong>屋主 30 秒聲音訪談</strong>
+              <audio controls preload="none" aria-label="屋主聲音訪談示意音訊">
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                您的瀏覽器不支援音訊播放。
+              </audio>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="voices" class="voices" aria-labelledby="voicesTitle">
+      <div class="container">
+        <span class="eyebrow">Homeowners' Words</span>
+        <h2 id="voicesTitle" class="section-title">屋主不是要一句保證，而是要一路有人回答</h2>
+        <p class="section-lead">以下為官網語氣示意，可日後替換成真實訪談逐字稿與授權照片。</p>
+        <div class="voice-grid">
+          <article class="voice-card"><div class="quote-mark">“</div><p>我們一開始最怕的是錢不夠，後來他們把融資、信託、房租補貼一項一項算給我們看，心裡才比較踏實。</p><strong>西區屋主｜陳小姐</strong></article>
+          <article class="voice-card"><div class="quote-mark">“</div><p>家裡長輩很念舊，不想離開原本的生活圈。隆磐不是一直催我們簽約，而是先陪我們開家庭會議。</p><strong>北屯屋主子女｜林先生</strong></article>
+          <article class="voice-card"><div class="quote-mark">“</div><p>施工期間最重要的是有人講清楚進度，每次查核、驗收、請款都有文件，我們比較不會害怕。</p><strong>南區地主｜王先生</strong></article>
+          <article class="voice-card"><div class="quote-mark">“</div><p>新家不是變豪華而已，是樓梯、採光、浴室都變得更適合爸媽生活。這才是我們想要的重建。</p><strong>大雅屋主｜張小姐</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="rebirth" aria-labelledby="rebirthTitle">
+      <div class="container rebirth-card">
+        <img loading="lazy" src="https://placehold.co/900x680/E4C7AF/2A211B?text=%E5%85%AC%E7%9B%8A%EF%BC%9A%E9%87%8D%E7%94%9F%E4%B9%8B%E5%AE%B6" alt="重生之家公益改建示意照">
+        <div>
+          <span class="eyebrow">ESG Story</span>
+          <h2 id="rebirthTitle" class="section-title">重生之家：讓貧困長輩重新擁有遮風避雨的家</h2>
+          <p class="section-lead">品牌的價值，不只在獎項與案量，也在願不願意走進真正需要幫助的家庭。這個區塊適合作為隆磐最重要的情緒記憶點。</p>
+          <div style="margin-top:28px"><a class="btn btn-primary" href="#contact">我也想談談家裡的狀況</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" aria-labelledby="contactTitle">
+      <div class="container">
+        <span class="eyebrow" style="color:var(--milk)">Start A New Chapter</span>
+        <h2 id="contactTitle" class="section-title">把您家的故事告訴我們，我們陪您寫下一章</h2>
+        <p class="section-lead">無論您正在煩惱危老資格、家族意見、資金、搬遷，或只是想知道「我家能不能重建」，都可以先留下基本資料。</p>
+        <form class="form-card" action="mailto:service@longpon.com.tw" method="post" enctype="text/plain">
+          <div class="form-grid">
+            <div class="field"><label for="name">姓名</label><input id="name" name="姓名" autocomplete="name" required placeholder="王小姐"></div>
+            <div class="field"><label for="phone">手機</label><input id="phone" name="手機" inputmode="tel" autocomplete="tel" required placeholder="09xx-xxx-xxx"></div>
+            <div class="field"><label for="district">房屋所在區域</label><input id="district" name="房屋所在區域" placeholder="例如：台中北區、西區、北屯"></div>
+            <div class="field"><label for="age">屋齡</label><select id="age" name="屋齡"><option>30 年以下</option><option>31–40 年</option><option>41–50 年</option><option>50 年以上</option><option>不確定，需要協助查詢</option></select></div>
+            <div class="field field-full"><label for="message">想先詢問的事</label><textarea id="message" name="想先詢問的事" rows="4" placeholder="可以簡單描述屋況、家族人數、是否有人居住、目前最擔心的問題。"></textarea></div>
+          </div>
+          <div style="margin-top:26px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between">
+            <button class="btn btn-primary" type="submit">送出故事與評估需求</button>
+            <small style="color:var(--muted)">MVP 使用 mailto 暫代；正式版建議串接 CRM / LINE OA / GA4 Event。</small>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <aside class="floating-cta" aria-label="快速聯絡">
+    <a href="https://line.me/R/ti/p/@longpon" aria-label="加入 LINE">LINE</a>
+    <a href="tel:0423756168" aria-label="撥打電話">☎</a>
+  </aside>
+  <nav class="mobile-bar" aria-label="手機快速聯絡列">
+    <a href="https://line.me/R/ti/p/@longpon">LINE 諮詢</a>
+    <a href="tel:0423756168">電話聯絡</a>
+  </nav>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>隆磐建設股份有限公司</h3>
+          <p>台中危老重建、自地自建、都市更新與全案管理。以制度守護權益，以故事理解家庭。</p>
+        </div>
+        <div><h4>品牌故事</h4><div class="footer-links"><a href="#story">重生之家</a><a href="#voices">屋主推薦</a><a href="#case">案例訪談</a></div></div>
+        <div><h4>服務入口</h4><div class="footer-links"><a href="#promise">三個承諾</a><a href="#process">全案流程</a><a href="#contact">預約評估</a></div></div>
+        <div><h4>聯絡方式</h4><p>電話：04-2375-6168<br>LINE：@longpon<br>服務地區：台中與中部地區</p></div>
+      </div>
+      <div class="copyright">© 2026 Longpon Construction Co., Ltd. Warm Human MVP. 本頁為官網重建示意稿，圖片與音訊為 placeholder。</div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 80);
+      const y = window.scrollY;
+      document.querySelectorAll('[data-parallax]').forEach((el) => {
+        const speed = Number(el.dataset.parallax || 0.3);
+        el.style.setProperty('--parallax', String(y * speed));
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const range = document.getElementById('baRange');
+    const after = document.getElementById('baAfter');
+    const handle = document.getElementById('baHandle');
+    function updateBeforeAfter(value) {
+      after.style.clipPath = `inset(0 0 0 ${value}%)`;
+      handle.style.left = `${value}%`;
+    }
+    range.addEventListener('input', (e) => updateBeforeAfter(e.target.value));
+    updateBeforeAfter(range.value);
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://www.longpon.com.tw/#business",
+        "name": "隆磐建設股份有限公司",
+        "alternateName": "Longpon Construction Co., Ltd.",
+        "description": "台中危老重建、自地自建、都市更新與全案管理服務。",
+        "telephone": "+886-4-2375-6168",
+        "areaServed": "台中市",
+        "url": "https://www.longpon.com.tw/",
+        "image": "https://placehold.co/1200x630/E9DCC9/2A211B?text=Longpon+Warm+Human",
+        "priceRange": "依個案評估"
+      },
+      {
+        "@type": "Article",
+        "@id": "https://www.longpon.com.tw/rebirth-home#warm-human-article",
+        "headline": "重生之家：讓老屋重新成為能安心生活的家",
+        "author": { "@type": "Organization", "name": "隆磐建設股份有限公司" },
+        "publisher": { "@type": "Organization", "name": "隆磐建設股份有限公司" },
+        "image": "https://placehold.co/1200x630/E9DCC9/2A211B?text=Rebirth+Home",
+        "inLanguage": "zh-Hant"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.longpon.com.tw/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "首頁", "item": "https://www.longpon.com.tw/" },
+          { "@type": "ListItem", "position": 2, "name": "重生之家", "item": "https://www.longpon.com.tw/rebirth-home" }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

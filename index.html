@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>隆磐建設｜網站設計稿預覽</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      background: #0d0d0d;
+      color: #e5e5e5;
+      min-height: 100vh;
+      padding: 48px 24px 80px;
+    }
+
+    header {
+      max-width: 960px;
+      margin: 0 auto 48px;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #fff;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #444;
+      transform: translateY(-2px);
+    }
+
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #333;
+      border-bottom: 1px solid #222;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-thumb iframe {
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      transform-origin: top left;
+      pointer-events: none;
+      border: none;
+    }
+
+    .card-body {
+      padding: 16px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-num {
+      font-size: 0.7rem;
+      color: #555;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.06em;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #ddd;
+      line-height: 1.4;
+    }
+
+    .card-link {
+      margin-top: auto;
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    footer {
+      max-width: 960px;
+      margin: 64px auto 0;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #3a3a3a;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>隆磐建設｜網站設計稿預覽</h1>
+  <p>共 17 個版本 — 點擊卡片開啟完整預覽</p>
+</header>
+
+<div class="grid">
+
+  <a class="card" href="preview-01.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-01.html" loading="lazy" title="preview-01"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">01</span>
+      <span class="card-title">台中危老重建・自地自建・都市更新</span>
+      <span class="card-link">preview-01.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-02.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-02.html" loading="lazy" title="preview-02"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">02</span>
+      <span class="card-title">台中危老都更重建專家</span>
+      <span class="card-link">preview-02.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-03.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-03.html" loading="lazy" title="preview-03"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">03</span>
+      <span class="card-title">家，值得被好好重建</span>
+      <span class="card-link">preview-03.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-04.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-04.html" loading="lazy" title="preview-04"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">04</span>
+      <span class="card-title">危老重建・自地自建・全案管理</span>
+      <span class="card-link">preview-04.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-05.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-05.html" loading="lazy" title="preview-05"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">05</span>
+      <span class="card-title">家，值得被好好重建</span>
+      <span class="card-link">preview-05.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-06.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-06.html" loading="lazy" title="preview-06"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">06</span>
+      <span class="card-title">30 秒危老重建試算與自地自建評估</span>
+      <span class="card-link">preview-06.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-07.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-07.html" loading="lazy" title="preview-07"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">07</span>
+      <span class="card-title">Architectural Editorial</span>
+      <span class="card-link">preview-07.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-08.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-08.html" loading="lazy" title="preview-08"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">08</span>
+      <span class="card-title">Interactive 3D Reconstruction</span>
+      <span class="card-link">preview-08.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-09.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-09.html" loading="lazy" title="preview-09"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">09</span>
+      <span class="card-title">Apple Minimal</span>
+      <span class="card-link">preview-09.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-10.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-10.html" loading="lazy" title="preview-10"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">10</span>
+      <span class="card-title">Editorial Gallery</span>
+      <span class="card-link">preview-10.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-11.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-11.html" loading="lazy" title="preview-11"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">11</span>
+      <span class="card-title">Warm Humanistic</span>
+      <span class="card-link">preview-11.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-12.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-12.html" loading="lazy" title="preview-12"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">12</span>
+      <span class="card-title">Linear SaaS</span>
+      <span class="card-link">preview-12.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-13.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-13.html" loading="lazy" title="preview-13"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">13</span>
+      <span class="card-title">Premium Luxury</span>
+      <span class="card-link">preview-13.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-14.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-14.html" loading="lazy" title="preview-14"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">14</span>
+      <span class="card-title">Japanese Zen</span>
+      <span class="card-link">preview-14.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-15.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-15.html" loading="lazy" title="preview-15"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">15</span>
+      <span class="card-title">Bold Geometric</span>
+      <span class="card-link">preview-15.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-16.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-16.html" loading="lazy" title="preview-16"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">16</span>
+      <span class="card-title">Dark Tech Futuristic</span>
+      <span class="card-link">preview-16.html ↗</span>
+    </div>
+  </a>
+
+  <a class="card" href="preview-17.html" target="_blank">
+    <div class="card-thumb">
+      <iframe src="preview-17.html" loading="lazy" title="preview-17"></iframe>
+    </div>
+    <div class="card-body">
+      <span class="card-num">17</span>
+      <span class="card-title">老屋的故事，新生的開始</span>
+      <span class="card-link">preview-17.html ↗</span>
+    </div>
+  </a>
+
+</div>
+
+<footer>隆磐建設股份有限公司 — 內部設計稿預覽用途</footer>
+
+</body>
+</html>
